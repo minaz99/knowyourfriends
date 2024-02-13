@@ -59,21 +59,40 @@ const Main = () => {
 
         <QuestionOptionsCircle style={styles.question} images={images} />
         <View className="m-auto space-y-3 mx-auto">
-          <TouchableOpacity
-            style={{ backgroundColor: "#506864" }}
-            className="rounded-lg p-6"
-            onPress={() => navigation.navigate("Home")}
-          >
-            <Text className="text-white text-md tracking-widest font-bold text-center">
-              PLAY
-            </Text>
-          </TouchableOpacity>
+          <View className="flex-row">
+            <LinearGradient
+              className="rounded-l-full"
+              colors={["#1e3c72", "#2a5298"]}
+            >
+              <TouchableOpacity
+                className="p-6"
+                onPress={() => navigation.navigate("Home")}
+              >
+                <Text className="text-white text-md tracking-widest font-bold text-center">
+                  CREATE
+                </Text>
+              </TouchableOpacity>
+            </LinearGradient>
+            <LinearGradient
+              className="rounded-r-full"
+              colors={["#ff758c", "#ff7eb3"]}
+            >
+              <TouchableOpacity
+                className=" p-6"
+                onPress={() => navigation.navigate("Home")}
+              >
+                <Text className="text-white text-md tracking-widest font-bold text-center">
+                  JOIN
+                </Text>
+              </TouchableOpacity>
+            </LinearGradient>
+          </View>
           <LinearGradient
             className="rounded-full"
-            colors={["#ff758c", "#ff7eb3"]}
+            colors={["#fdfbfb", "#ebedee"]}
           >
             <TouchableOpacity className=" p-6">
-              <Text className="text-white  text-md tracking-widest font-bold text-center">
+              <Text className="text-slate-600  text-md tracking-widest font-bold text-center">
                 GAME RULES
               </Text>
             </TouchableOpacity>
