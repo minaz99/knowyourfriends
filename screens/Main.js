@@ -58,7 +58,7 @@ const Main = () => {
         </Text>
 
         <QuestionOptionsCircle style={styles.question} images={images} />
-        <View className="m-auto space-y-3 mx-auto">
+        <View className="m-auto space-y-6 mx-auto">
           <View className="flex-row">
             <LinearGradient
               className="rounded-l-full"
