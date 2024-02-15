@@ -76,6 +76,16 @@ const Main = ({ navigation }) => {
       fontSize: 11,
       letterSpacing: 3,
     },
+    headlines: {
+      fontFamily: "Inter_600SemiBold",
+      fontSize: 17,
+      letterSpacing: 4,
+    },
+    inlines: {
+      fontFamily: "Inter_600SemiBold",
+      fontSize: 15,
+      letterSpacing: 3,
+    },
   });
   //const navigation = useNavigation();
   useLayoutEffect(() => {
@@ -124,7 +134,13 @@ const Main = ({ navigation }) => {
             >
               <TouchableOpacity
                 className="p-6"
-                onPress={() => navigation.navigate("Create")}
+                onPress={() =>
+                  navigation.navigate("Create", {
+                    title: styles.title,
+                    headlines: styles.headlines,
+                    inlines: styles.inlines,
+                  })
+                }
               >
                 <Text className="text-white text-md tracking-widest font-bold text-center">
                   CREATE
