@@ -1,24 +1,55 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text, Animated, StyleSheet, Easing } from "react-native";
+import React, { useEffect, useState } from "react";
 import Circle from "./Circle";
 import QuestionCircle from "./QuestionCircle";
-
 const QuestionOptionsCircle = (props) => {
+  let xValue = new Animated.Value(0);
+  let yValue = new Animated.Value(-200);
+  let opacityAnimation = new Animated.Value(0);
+  const opacityStyle = { opacity: opacityAnimation };
+  startAnimation = () => {
+    Animated.timing(opacityAnimation, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: true,
+      //easing: Easing.linear,
+    }).start();
+    Animated.timing(yValue, {
+      toValue: 0,
+      duration: 2500,
+      useNativeDriver: true,
+      easing: Easing.bounce,
+    }).start();
+  };
+  const animatedStyles = {
+    transform: [
+      {
+        translateY: yValue,
+      },
+    ],
+  };
+  useEffect(() => {
+    startAnimation();
+  });
   return (
-    <View className="p-4">
-      <View className="mx-auto">
+    <Animated.View style={[opacityStyle, animatedStyles]} className="p-4">
+      <Animated.View className="mx-auto ">
         <Circle image={props.images.flight} />
-      </View>
+      </Animated.View>
       <View className="justify-around flex-row ">
-        <Circle
-          image={props.images.chocolate}
-          className="w-12  bg-red-300 rounded-full h-12"
-        />
+        <View className="">
+          <Circle
+            image={props.images.chocolate}
+            className="w-12  bg-red-300 rounded-full h-12"
+          />
+        </View>
         <View></View>
-        <Circle
-          image={props.images.burger}
-          className="w-12 bg-red-300 rounded-full h-12"
-        />
+        <View className="">
+          <Circle
+            image={props.images.burger}
+            className="w-12 bg-red-300 rounded-full h-12"
+          />
+        </View>
       </View>
       <View className="flex-row  justify-around items-center">
         <View className="">
@@ -35,15 +66,19 @@ const QuestionOptionsCircle = (props) => {
         </View>
       </View>
       <View className="justify-around flex-row ">
-        <Circle
-          image={props.images.landscape}
-          className="w-12 bg-red-300 rounded-full h-12"
-        />
+        <View className="">
+          <Circle
+            image={props.images.landscape}
+            className="w-12 bg-red-300 rounded-full h-12"
+          />
+        </View>
         <View></View>
-        <Circle
-          image={props.images.scream}
-          className="w-12 bg-red-300 rounded-full h-12"
-        />
+        <View className="">
+          <Circle
+            image={props.images.scream}
+            className="w-12 bg-red-300 rounded-full h-12"
+          />
+        </View>
       </View>
       <View className="mx-auto">
         <Circle
@@ -51,7 +86,7 @@ const QuestionOptionsCircle = (props) => {
           className="w-12 bg-red-300 rounded-full h-12 mx-auto"
         />
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
