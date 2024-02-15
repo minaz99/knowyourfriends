@@ -4,13 +4,14 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
+  Animated,
 } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import io from "socket.io-client";
-const Create = () => {
-  const navigation = useNavigation();
+import { LinearGradient } from "expo-linear-gradient";
+const Create = ({ navigation, route }) => {
+  const { title, headlines, inlines } = route.params;
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   });
@@ -39,96 +40,117 @@ const Create = () => {
   };
 
   return (
-    <SafeAreaView style={{ backgroundColor: "#92BDB5" }} className="h-full ">
-      <Text className="tracking-widest text-lg font-bold text-center mt-24 text-white">
-        CREATE GAME
-      </Text>
-      <View className="space-y-4 items-center  p-8">
-        <View>
-          <Text
-            style={{ color: "#DEEBE9" }}
-            className="text-white text-center font-bold text-lg tracking-widest"
+    <LinearGradient colors={["#df89b5", "#bfd9fe"]}>
+      <SafeAreaView className="h-full ">
+        <View className="mt-12">
+          <Animated.Text
+            style={[title /*, animatedStyles*/]}
+            numberOfLines={1}
+            className=" text-center  text-slate-600"
           >
-            Username
-          </Text>
-          <TextInput
-            placeholder="nickname"
-            style={{
-              backgroundColor: "#FED7AA",
-              borderRadius: 20,
-              height: 40,
-            }}
-            className="text-lg w-44 text-center"
-            onChangeText={setUsername}
-          ></TextInput>
-        </View>
-        <View>
-          <Text
-            style={{ color: "#DEEBE9" }}
-            className="text-white text-center font-bold text-lg tracking-widest"
+            CREATE GAME
+          </Animated.Text>
+
+          <View className="space-y-4 items-center  p-8">
+            <View className="space-y-2">
+              <Text
+                style={[headlines]}
+                className="text-white text-center font-bold text-lg tracking-widest"
+              >
+                Username
+              </Text>
+
+              <TextInput
+                placeholder="Nickname"
+                style={[
+                  { backgroundColor: "#FED7AA", borderRadius: 20, height: 40 },
+                  inlines,
+                ]}
+                className="text-lg w-44 overflow-x-scroll text-center text-slate-600/90 "
+                onChangeText={setUsername}
+              ></TextInput>
+            </View>
+            <View className="space-y-2">
+              <Text
+                style={[headlines]}
+                className="text-white text-center font-bold text-lg tracking-widest"
+              >
+                Players
+              </Text>
+              <TextInput
+                placeholder="0"
+                style={[
+                  {
+                    backgroundColor: "#FED7AA",
+                    borderRadius: 20,
+                    height: 40,
+                  },
+                ]}
+                className="text-lg w-44 text-center text-slate-600/90"
+                onChangeText={setPlayers}
+                keyboardType="numeric"
+              ></TextInput>
+            </View>
+            <View className="space-y-2">
+              <Text
+                style={[headlines]}
+                className="text-white text-center font-bold text-lg tracking-widest"
+              >
+                Rounds
+              </Text>
+              <TextInput
+                placeholder="Max 100"
+                style={[
+                  {
+                    backgroundColor: "#FED7AA",
+                    borderRadius: 20,
+                    height: 40,
+                  },
+                  inlines,
+                ]}
+                className="text-lg w-44 text-center text-slate-600/90"
+                onChangeText={setRounds}
+                keyboardType="numeric"
+              ></TextInput>
+            </View>
+            <View className="space-y-2">
+              <Text
+                style={[/*{ color: "#DEEBE9" },*/ headlines]}
+                className="text-white text-center font-bold text-lg tracking-widest"
+              >
+                Game Password
+              </Text>
+              <TextInput
+                placeholder="Password"
+                style={[
+                  {
+                    backgroundColor: "#FED7AA",
+                    borderRadius: 20,
+                    height: 40,
+                  },
+                  inlines,
+                ]}
+                className="text-lg w-44 text-center text-slate-600/90"
+                onChangeText={setPassword}
+              ></TextInput>
+            </View>
+          </View>
+
+          <TouchableOpacity
+            style={{ backgroundColor: "#9F92BD" }}
+            className="rounded-3xl w-2/4 p-6 mx-auto "
+            onPress={async () => await createGame()}
           >
-            Players
-          </Text>
-          <TextInput
-            placeholder="0"
-            style={{
-              backgroundColor: "#FED7AA",
-              borderRadius: 20,
-              height: 40,
-            }}
-            className="text-lg w-44 text-center"
-            onChangeText={setPlayers}
-            keyboardType="numeric"
-          ></TextInput>
+            <Text
+              style={inlines}
+              className="text-white text-md tracking-widest font-bold text-center"
+            >
+              CREATE
+            </Text>
+          </TouchableOpacity>
         </View>
-        <View>
-          <Text
-            style={{ color: "#DEEBE9" }}
-            className="text-white text-center font-bold text-lg tracking-widest"
-          >
-            Rounds
-          </Text>
-          <TextInput
-            placeholder="Max 100"
-            style={{
-              backgroundColor: "#FED7AA",
-              borderRadius: 20,
-              height: 40,
-            }}
-            className="text-lg w-44 text-center"
-            onChangeText={setRounds}
-            keyboardType="numeric"
-          ></TextInput>
-        </View>
-        <View>
-          <Text
-            style={{ color: "#DEEBE9" }}
-            className="text-white text-center font-bold text-lg tracking-widest"
-          >
-            Game Password
-          </Text>
-          <TextInput
-            placeholder="password"
-            style={{
-              backgroundColor: "#FED7AA",
-              borderRadius: 20,
-              height: 40,
-            }}
-            className="text-lg w-44 text-center"
-            onChangeText={setPassword}
-          ></TextInput>
-        </View>
-      </View>
-      <TouchableOpacity
-        style={{ backgroundColor: "#9F92BD" }}
-        className="rounded-3xl w-2/4 p-6 mx-auto"
-        onPress={async () => await createGame()}
-      >
-        <Text className="text-white text-md tracking-widest font-bold text-center">
-          CREATE
-        </Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 
