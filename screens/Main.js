@@ -1,16 +1,68 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import React, { useLayoutEffect } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Animated,
+  Easing,
+} from "react-native";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useFonts, Inter_600SemiBold } from "@expo-google-fonts/inter";
+import {
+  useFonts,
+  Inter_600SemiBold,
+  Inter_700Bold,
+} from "@expo-google-fonts/inter";
 import QuestionOptionsCircle from "../Components/QuestionOptionsCircle";
 
 const Main = () => {
+  let yValueCreateJoin = new Animated.Value(-100);
+  let yValue = new Animated.Value(-120);
+  let opacityAnimation = new Animated.Value(0);
+  const opacityStyle = { opacity: opacityAnimation };
+  startAnimation = () => {
+    Animated.timing(yValue, {
+      toValue: 0,
+      duration: 2500,
+      useNativeDriver: true,
+      easing: Easing.bounce,
+    }).start();
+    Animated.timing(opacityAnimation, {
+      toValue: 1,
+      duration: 2500,
+      useNativeDriver: true,
+      //easing: Easing.bounce,
+    }).start();
+    Animated.timing(yValueCreateJoin, {
+      toValue: 0,
+      duration: 1500,
+      useNativeDriver: true,
+      easing: Easing.bounce,
+    }).start();
+  };
+  const animatedStyles = {
+    transform: [
+      {
+        translateY: yValue,
+      },
+    ],
+  };
+  const animatedStylesBtns = {
+    transform: [
+      {
+        translateY: yValueCreateJoin,
+      },
+    ],
+  };
+  startAnimation();
   let [fontsLoaded, fontError] = useFonts({
     Inter_600SemiBold,
+    Inter_700Bold,
   });
-
+  const [value, setValue] = useState(0.2);
   /*if (!fontsLoaded && !fontError) {
     return null;
   }*/
@@ -48,18 +100,29 @@ const Main = () => {
   };
   return (
     <LinearGradient colors={["#df89b5", "#bfd9fe"]}>
-      <SafeAreaView className="h-full">
-        <Text
-          style={styles.title}
-          numberOfLines={1}
-          className=" my-6 underline  text-center text-slate-600"
-        >
-          Do you know your friends
-        </Text>
+      <SafeAreaView className="h-full  ">
+        <View className="space-y-6">
+          <Animated.Text
+            style={[styles.title, animatedStyles]}
+            numberOfLines={2}
+            className=" text-center mt-6 text-slate-600"
+          >
+            Do you know your friends
+          </Animated.Text>
 
-        <QuestionOptionsCircle style={styles.question} images={images} />
+          <View>
+            <QuestionOptionsCircle
+              value={value}
+              style={styles.question}
+              images={images}
+            />
+          </View>
+        </View>
         <View className="m-auto space-y-6 mx-auto">
-          <View className="flex-row">
+          <Animated.View
+            style={[opacityStyle, animatedStyles, animatedStylesBtns]}
+            className="flex-row"
+          >
             <LinearGradient
               className="rounded-l-full"
               colors={["#1e3c72", "#2a5298"]}
@@ -86,17 +149,24 @@ const Main = () => {
                 </Text>
               </TouchableOpacity>
             </LinearGradient>
-          </View>
-          <LinearGradient
-            className="rounded-full"
-            colors={["#fdfbfb", "#ebedee"]}
+          </Animated.View>
+          <Animated.View
+            style={[opacityStyle, animatedStyles, animatedStylesBtns]}
           >
-            <TouchableOpacity className=" p-6">
-              <Text className="text-slate-600  text-md tracking-widest font-bold text-center">
-                GAME RULES
-              </Text>
-            </TouchableOpacity>
-          </LinearGradient>
+            <LinearGradient
+              className="rounded-full"
+              colors={["#fdfbfb", "#ebedee"]}
+            >
+              <TouchableOpacity
+                onPress={() => setValue(value + 0.2)}
+                className=" p-6"
+              >
+                <Text className="text-slate-600  text-md tracking-widest font-bold text-center">
+                  GAME RULES
+                </Text>
+              </TouchableOpacity>
+            </LinearGradient>
+          </Animated.View>
         </View>
       </SafeAreaView>
     </LinearGradient>
