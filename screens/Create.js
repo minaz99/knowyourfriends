@@ -10,6 +10,7 @@ import React, { useLayoutEffect, useState } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 import { LinearGradient } from "expo-linear-gradient";
+import { ArrowLeftCircleIcon } from "react-native-heroicons/outline";
 const Create = ({ navigation, route }) => {
   const { title, headlines, inlines } = route.params;
   useLayoutEffect(() => {
@@ -42,7 +43,10 @@ const Create = ({ navigation, route }) => {
   return (
     <LinearGradient colors={["#df89b5", "#bfd9fe"]}>
       <SafeAreaView className="h-full ">
-        <View className="mt-12">
+        <View className="">
+          <TouchableOpacity onPress={() => navigation.goBack()} className="p-6">
+            <ArrowLeftCircleIcon color={"#475569"} height={32} width={32} />
+          </TouchableOpacity>
           <Animated.Text
             style={[title /*, animatedStyles*/]}
             numberOfLines={1}
