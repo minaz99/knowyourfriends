@@ -3,14 +3,17 @@ import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 
 const Circle = (props) => {
-  const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
+  let rotateAnimation = new Animated.Value(0);
+  const [animationStopped, setAnimationStopped] = useState(false);
   const handleAnimation = () => {
+    setAnimationStopped(false);
     Animated.timing(rotateAnimation, {
       toValue: 10000,
       duration: 40000,
       useNativeDriver: true,
     }).start(() => {
       rotateAnimation.setValue(0);
+      setAnimationStopped(true);
     });
   };
 
@@ -28,7 +31,7 @@ const Circle = (props) => {
   };
   useEffect(() => {
     handleAnimation();
-  }, []);
+  }, [animationStopped]);
   return (
     <LinearGradient
       className="rounded-full  w-12 h-12"
