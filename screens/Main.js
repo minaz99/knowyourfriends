@@ -8,7 +8,7 @@ import {
   Easing,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+//import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -18,7 +18,7 @@ import {
 } from "@expo-google-fonts/inter";
 import QuestionOptionsCircle from "../Components/QuestionOptionsCircle";
 
-const Main = () => {
+const Main = ({ navigation }) => {
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
@@ -62,7 +62,6 @@ const Main = () => {
     Inter_600SemiBold,
     Inter_700Bold,
   });
-  const [value, setValue] = useState(0.2);
   /*if (!fontsLoaded && !fontError) {
     return null;
   }*/
@@ -78,7 +77,7 @@ const Main = () => {
       letterSpacing: 3,
     },
   });
-  const navigation = useNavigation();
+  //const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, []);
@@ -111,11 +110,7 @@ const Main = () => {
           </Animated.Text>
 
           <View>
-            <QuestionOptionsCircle
-              value={value}
-              style={styles.question}
-              images={images}
-            />
+            <QuestionOptionsCircle style={styles.question} images={images} />
           </View>
         </View>
         <View className="m-auto space-y-6 mx-auto">
@@ -129,7 +124,7 @@ const Main = () => {
             >
               <TouchableOpacity
                 className="p-6"
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => navigation.navigate("Create")}
               >
                 <Text className="text-white text-md tracking-widest font-bold text-center">
                   CREATE
@@ -142,7 +137,7 @@ const Main = () => {
             >
               <TouchableOpacity
                 className=" p-6"
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => navigation.navigate("Join")}
               >
                 <Text className="text-white text-md tracking-widest font-bold text-center">
                   JOIN
@@ -157,10 +152,7 @@ const Main = () => {
               className="rounded-full"
               colors={["#fdfbfb", "#ebedee"]}
             >
-              <TouchableOpacity
-                onPress={() => setValue(value + 0.2)}
-                className=" p-6"
-              >
+              <TouchableOpacity className=" p-6">
                 <Text className="text-slate-600  text-md tracking-widest font-bold text-center">
                   GAME RULES
                 </Text>
