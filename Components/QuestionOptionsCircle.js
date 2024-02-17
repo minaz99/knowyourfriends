@@ -2,92 +2,142 @@ import { View, Text, Animated, StyleSheet, Easing } from "react-native";
 import React, { useEffect, useState } from "react";
 import Circle from "./Circle";
 import QuestionCircle from "./QuestionCircle";
-import Images from "./Images";
+import ImagesAndQuestions from "./ImagesAndQuestions";
 const QuestionOptionsCircle = (props) => {
-  let xValue = new Animated.Value(0);
-  let yValue = new Animated.Value(-200);
-  let opacityAnimation = new Animated.Value(0);
-  const opacityStyle = { opacity: opacityAnimation };
-  startAnimation = () => {
-    Animated.timing(opacityAnimation, {
-      toValue: 1,
-      duration: 1500,
-      useNativeDriver: true,
-      //easing: Easing.linear,
-    }).start();
-    Animated.timing(yValue, {
-      toValue: 0,
-      duration: 2500,
-      useNativeDriver: true,
-      easing: Easing.bounce,
-    }).start();
+  const [questionInView, setQuestionInView] = useState(ImagesAndQuestions.view);
+  const [circle1, setCircle1] = useState(ImagesAndQuestions.gift);
+  const [circle2, setCircle2] = useState(ImagesAndQuestions.icecream);
+  const [circle3, setCircle3] = useState(ImagesAndQuestions.movie);
+  const [circle4, setCircle4] = useState(ImagesAndQuestions.relaxing);
+  const [circle5, setCircle5] = useState(ImagesAndQuestions.speed);
+  const [circle6, setCircle6] = useState(ImagesAndQuestions.touching);
+  const [circle7, setCircle7] = useState(ImagesAndQuestions.travel);
+  const [circle8, setCircle8] = useState(ImagesAndQuestions.weather);
+
+  const onClickCircle = (circleObj, questionObj, circleNumber) => {
+    switch (circleNumber) {
+      case 1:
+        setCircle1(questionObj);
+        break;
+      case 2:
+        setCircle2(questionObj);
+        break;
+      case 3:
+        setCircle3(questionObj);
+        break;
+      case 4:
+        setCircle4(questionObj);
+        break;
+      case 5:
+        setCircle5(questionObj);
+        break;
+      case 6:
+        setCircle6(questionObj);
+        break;
+      case 7:
+        setCircle7(questionObj);
+        break;
+      case 8:
+        setCircle8(questionObj);
+        break;
+      default:
+        alert("error");
+    }
+    setQuestionInView(circleObj);
+    props.startAnimation();
   };
-  const animatedStyles = {
-    transform: [
-      {
-        translateY: yValue,
-      },
-    ],
-  };
-  useEffect(() => {
-    startAnimation();
-  });
+
   return (
-    <Animated.View style={[opacityStyle, animatedStyles]} className="p-4">
-      <Animated.View className="mx-auto ">
-        <Circle image={Images.flight} />
+    <View className="p-4">
+      <Animated.View style={[props.opacityStyle, props.animatedStyles]}>
+        <View className="mx-auto ">
+          <Circle
+            circleNumber={1}
+            onClickCircle={onClickCircle}
+            data={circle1}
+            dataInView={questionInView}
+          />
+        </View>
+        <View className="justify-around flex-row ">
+          <View className="">
+            <Circle
+              circleNumber={2}
+              onClickCircle={onClickCircle}
+              data={circle2}
+              dataInView={questionInView}
+              className="w-12bg-red-300 rounded-full h-12"
+            />
+          </View>
+          <View></View>
+          <View className="">
+            <Circle
+              circleNumber={3}
+              onClickCircle={onClickCircle}
+              data={circle3}
+              dataInView={questionInView}
+              className="w-12 bg-red-300 rounded-full h-12"
+            />
+          </View>
+        </View>
       </Animated.View>
-      <View className="justify-around flex-row ">
-        <View className="">
-          <Circle
-            image={Images.chocolate}
-            className="w-12  bg-red-300 rounded-full h-12"
-          />
-        </View>
-        <View></View>
-        <View className="">
-          <Circle
-            image={Images.burger}
-            className="w-12 bg-red-300 rounded-full h-12"
-          />
-        </View>
-      </View>
       <View className="flex-row  justify-around items-center">
-        <View className="">
-          <Circle image={Images.vacation} />
-        </View>
+        <Animated.View style={[props.opacityStyle, props.animatedStyles]}>
+          <Circle
+            circleNumber={4}
+            onClickCircle={onClickCircle}
+            data={circle4}
+            dataInView={questionInView}
+          />
+        </Animated.View>
         <QuestionCircle
-          image1={Images.sunset}
-          image2={Images.sunrise}
+          opacityStyle={props.opacityStyle}
+          animatedStyles={props.animatedStyles}
+          data={questionInView}
           style={props.style}
-          question={"Which do you prefer to watch"}
+          startAnimation={props.startAnimation}
         />
-        <View className="">
-          <Circle image={Images.coffee} />
-        </View>
-      </View>
-      <View className="justify-around flex-row ">
-        <View className="">
+        <Animated.View style={[props.opacityStyle, props.animatedStyles]}>
           <Circle
-            image={Images.landscape}
-            className="w-12 bg-red-300 rounded-full h-12"
+            circleNumber={5}
+            onClickCircle={onClickCircle}
+            data={circle5}
+            dataInView={questionInView}
+          />
+        </Animated.View>
+      </View>
+      <Animated.View style={[props.opacityStyle, props.animatedStyles]}>
+        <View className="justify-around flex-row ">
+          <View className="">
+            <Circle
+              circleNumber={6}
+              onClickCircle={onClickCircle}
+              data={circle6}
+              dataInView={questionInView}
+              className="w-12 bg-red-300 rounded-full h-12"
+            />
+          </View>
+          <View></View>
+          <View className="">
+            <Circle
+              circleNumber={7}
+              onClickCircle={onClickCircle}
+              data={circle7}
+              dataInView={questionInView}
+              className="w-12 bg-red-300 rounded-full h-12"
+            />
+          </View>
+        </View>
+        <View className="mx-auto">
+          <Circle
+            circleNumber={8}
+            onClickCircle={onClickCircle}
+            data={circle8}
+            dataInView={questionInView}
+            className="w-12 bg-red-300 rounded-full h-12 mx-auto"
           />
         </View>
-        <View></View>
-        <View className="">
-          <Circle
-            image={Images.scream}
-            className="w-12 bg-red-300 rounded-full h-12"
-          />
-        </View>
-      </View>
-      <View className="mx-auto">
-        <Circle
-          image={Images.rain}
-          className="w-12 bg-red-300 rounded-full h-12 mx-auto"
-        />
-      </View>
-    </Animated.View>
+      </Animated.View>
+    </View>
   );
 };
 
