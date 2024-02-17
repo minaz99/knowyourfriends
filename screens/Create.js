@@ -5,14 +5,58 @@ import {
   TextInput,
   TouchableOpacity,
   Animated,
+  Easing,
 } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftCircleIcon } from "react-native-heroicons/outline";
 const Create = ({ navigation, route }) => {
   const { title, headlines, inlines } = route.params;
+  let yValueCreateJoin = new Animated.Value(-100);
+  let yValue = new Animated.Value(-120);
+  let opacityAnimation = new Animated.Value(0);
+  startAnimation = () => {
+    Animated.timing(yValue, {
+      toValue: 0,
+      duration: 1750,
+      useNativeDriver: true,
+      easing: Easing.bounce,
+    }).start();
+    Animated.timing(opacityAnimation, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: true,
+      //easing: Easing.bounce,
+    }).start();
+    Animated.timing(yValueCreateJoin, {
+      toValue: 0,
+      duration: 1500,
+      useNativeDriver: true,
+      easing: Easing.bounce,
+    }).start();
+  };
+  const AS = {
+    animatedStyles: {
+      transform: [
+        {
+          translateY: yValue,
+        },
+      ],
+    },
+    animatedStylesBtns: {
+      transform: [
+        {
+          translateY: yValueCreateJoin,
+        },
+      ],
+    },
+    opacityStyle: { opacity: opacityAnimation },
+  };
+  useEffect(() => {
+    startAnimation();
+  }, []);
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   });
@@ -44,18 +88,26 @@ const Create = ({ navigation, route }) => {
     <LinearGradient colors={["#df89b5", "#bfd9fe"]}>
       <SafeAreaView className="h-full ">
         <View className="">
-          <TouchableOpacity onPress={() => navigation.goBack()} className="p-6">
-            <ArrowLeftCircleIcon color={"#475569"} height={32} width={32} />
-          </TouchableOpacity>
+          <Animated.View style={[AS.opacityStyle, AS.animatedStyles]}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              className="p-6"
+            >
+              <ArrowLeftCircleIcon color={"#475569"} height={32} width={32} />
+            </TouchableOpacity>
+          </Animated.View>
           <Animated.Text
-            style={[title /*, animatedStyles*/]}
+            style={[title, AS.animatedStyles, AS.opacityStyle]}
             numberOfLines={1}
             className=" text-center  text-slate-600"
           >
             CREATE GAME
           </Animated.Text>
 
-          <View className="space-y-4 items-center  p-8">
+          <Animated.View
+            style={[AS.opacityAnimation, AS.animatedStyles]}
+            className="space-y-4 items-center  p-8"
+          >
             <View className="space-y-2">
               <Text
                 style={[headlines]}
@@ -138,20 +190,21 @@ const Create = ({ navigation, route }) => {
                 onChangeText={setPassword}
               ></TextInput>
             </View>
-          </View>
-
-          <TouchableOpacity
-            style={{ backgroundColor: "#9F92BD" }}
-            className="rounded-3xl w-2/4 p-6 mx-auto "
-            onPress={async () => await createGame()}
-          >
-            <Text
-              style={inlines}
-              className="text-white text-md tracking-widest font-bold text-center"
+          </Animated.View>
+          <Animated.View style={[AS.animatedStylesBtns, AS.opacityStyle]}>
+            <TouchableOpacity
+              style={{ backgroundColor: "#9F92BD" }}
+              className="rounded-3xl w-2/4 p-6 mx-auto "
+              onPress={async () => await createGame()}
             >
-              CREATE
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={inlines}
+                className="text-white text-md tracking-widest font-bold text-center"
+              >
+                CREATE
+              </Text>
+            </TouchableOpacity>
+          </Animated.View>
         </View>
       </SafeAreaView>
     </LinearGradient>
