@@ -17,12 +17,11 @@ import {
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
 import QuestionOptionsCircle from "../Components/QuestionOptionsCircle";
-
+import { Styles } from "../styles/Styles";
 const Main = ({ navigation }) => {
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
-  let opacityAnimation = new Animated.Value(0);
-  const opacityStyle = { opacity: opacityAnimation };
+  let opacityAnimation = new Animated.Value(0);  
   startAnimation = () => {
     Animated.timing(yValue, {
       toValue: 0,
@@ -34,6 +33,7 @@ const Main = ({ navigation }) => {
       toValue: 1,
       duration: 2500,
       useNativeDriver: true,
+      //easing: Easing.bounce,
     }).start();
     Animated.timing(yValueCreateJoin, {
       toValue: 0,
@@ -42,20 +42,24 @@ const Main = ({ navigation }) => {
       easing: Easing.bounce,
     }).start();
   };
-  const animatedStyles = {
-    transform: [
-      {
-        translateY: yValue,
-      },
-    ],
+  const AS = {
+    animatedStyles: {
+      transform: [
+        {
+          translateY: yValue,
+        },
+      ],
+    },
+    animatedStylesBtns: {
+      transform: [
+        {
+          translateY: yValueCreateJoin,
+        },
+      ],
+    },
+    opacityStyle: { opacity: opacityAnimation },
   };
-  const animatedStylesBtns = {
-    transform: [
-      {
-        translateY: yValueCreateJoin,
-      },
-    ],
-  };
+  
   startAnimation();
   let [fontsLoaded, fontError] = useFonts({
     Inter_600SemiBold,
@@ -64,28 +68,7 @@ const Main = ({ navigation }) => {
   /*if (!fontsLoaded && !fontError) {
     return null;
   }*/
-  const styles = StyleSheet.create({
-    title: {
-      fontFamily: "Inter_600SemiBold",
-      fontSize: 20,
-      letterSpacing: 5,
-    },
-    question: {
-      fontFamily: "Inter_600SemiBold",
-      fontSize: 10,
-      letterSpacing: 3,
-    },
-    headlines: {
-      fontFamily: "Inter_600SemiBold",
-      fontSize: 17,
-      letterSpacing: 4,
-    },
-    inlines: {
-      fontFamily: "Inter_600SemiBold",
-      fontSize: 15,
-      letterSpacing: 3,
-    },
-  });
+
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, []);
@@ -95,7 +78,7 @@ const Main = ({ navigation }) => {
       <SafeAreaView className="h-full  ">
         <View className="space-y-6">
           <Animated.Text
-            style={[styles.title, animatedStyles]}
+            style={[Styles.title, AS.animatedStyles]}
             numberOfLines={2}
             className=" text-center mt-6 text-slate-600"
           >
@@ -104,16 +87,16 @@ const Main = ({ navigation }) => {
 
           <View>
             <QuestionOptionsCircle
-              animatedStyles={animatedStyles}
-              opacityStyle={opacityStyle}
-              style={styles.question}
+              animatedStyles={AS.animatedStyles}
+              opacityStyle={AS.opacityStyle}
+              style={Styles.question}
               startAnimation={startAnimation}
             />
           </View>
         </View>
         <View className="m-auto space-y-6 mx-auto">
           <Animated.View
-            style={[opacityStyle, animatedStyles, animatedStylesBtns]}
+            style={[AS.opacityStyle, AS.animatedStyles, AS.animatedStylesBtns]}
             className="flex-row"
           >
             <LinearGradient
@@ -124,9 +107,9 @@ const Main = ({ navigation }) => {
                 className="p-6"
                 onPress={() =>
                   navigation.navigate("Create", {
-                    title: styles.title,
-                    headlines: styles.headlines,
-                    inlines: styles.inlines,
+                    title: Styles.title,
+                    headlines: Styles.headlines,
+                    inlines: Styles.inlines,
                   })
                 }
               >
@@ -150,7 +133,7 @@ const Main = ({ navigation }) => {
             </LinearGradient>
           </Animated.View>
           <Animated.View
-            style={[opacityStyle, animatedStyles, animatedStylesBtns]}
+            style={[AS.opacityStyle, AS.animatedStyles, AS.animatedStylesBtns]}
           >
             <LinearGradient
               className="rounded-full"
