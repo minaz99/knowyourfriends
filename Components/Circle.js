@@ -1,4 +1,4 @@
-import { View, Text, Image, Animated } from "react-native";
+import { View, Text, Image, Animated, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -37,9 +37,16 @@ const Circle = (props) => {
       className="rounded-full  w-12 h-12"
       colors={["#a8edea", "#fed6e3"]}
     >
-      <Animated.View className="m-auto " style={animatedStyle}>
-        <Image source={props.image} className="h-6 w-6"></Image>
-      </Animated.View>
+      <TouchableOpacity
+        onPress={() =>
+          props.onClickCircle(props.data, props.dataInView, props.circleNumber)
+        }
+        className="m-auto "
+      >
+        <Animated.View className="m-auto " style={animatedStyle}>
+          <Image source={props.data.img1} className="h-6 w-6"></Image>
+        </Animated.View>
+      </TouchableOpacity>
     </LinearGradient>
   );
 };
