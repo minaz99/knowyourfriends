@@ -34,7 +34,6 @@ const Main = ({ navigation }) => {
       toValue: 1,
       duration: 2500,
       useNativeDriver: true,
-      //easing: Easing.bounce,
     }).start();
     Animated.timing(yValueCreateJoin, {
       toValue: 0,
@@ -73,7 +72,7 @@ const Main = ({ navigation }) => {
     },
     question: {
       fontFamily: "Inter_600SemiBold",
-      fontSize: 11,
+      fontSize: 10,
       letterSpacing: 3,
     },
     headlines: {
@@ -87,7 +86,6 @@ const Main = ({ navigation }) => {
       letterSpacing: 3,
     },
   });
-  //const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, []);
@@ -105,7 +103,12 @@ const Main = ({ navigation }) => {
           </Animated.Text>
 
           <View>
-            <QuestionOptionsCircle style={styles.question} />
+            <QuestionOptionsCircle
+              animatedStyles={animatedStyles}
+              opacityStyle={opacityStyle}
+              style={styles.question}
+              startAnimation={startAnimation}
+            />
           </View>
         </View>
         <View className="m-auto space-y-6 mx-auto">
