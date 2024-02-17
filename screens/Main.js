@@ -21,7 +21,7 @@ import { Styles } from "../styles/Styles";
 const Main = ({ navigation }) => {
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
-  let opacityAnimation = new Animated.Value(0);  
+  let opacityAnimation = new Animated.Value(0);
   startAnimation = () => {
     Animated.timing(yValue, {
       toValue: 0,
@@ -59,7 +59,7 @@ const Main = ({ navigation }) => {
     },
     opacityStyle: { opacity: opacityAnimation },
   };
-  
+
   startAnimation();
   let [fontsLoaded, fontError] = useFonts({
     Inter_600SemiBold,
