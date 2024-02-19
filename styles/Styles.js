@@ -27,7 +27,7 @@ export const Styles = StyleSheet.create({
     letterSpacing: 3,
   },
   emptyInputText: {
-    borderWidth: "2",
+    borderWidth: 2,
     borderColor: "#475569",
     opacity: 0.4,
     borderStyle: "solid",
@@ -38,7 +38,7 @@ export const Styles = StyleSheet.create({
     backgroundColor: "#FED7AA",
     borderRadius: 20,
     height: 50,
-    borderWidth: "2",
+    borderWidth: 2,
     borderColor: "#475569",
     borderStyle: "solid",
   },
