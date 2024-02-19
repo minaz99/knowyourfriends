@@ -105,13 +105,7 @@ const Main = ({ navigation }) => {
             >
               <TouchableOpacity
                 className="p-6"
-                onPress={() =>
-                  navigation.navigate("Create", {
-                    title: Styles.title,
-                    headlines: Styles.headlines,
-                    inlines: Styles.inlines,
-                  })
-                }
+                onPress={() => navigation.navigate("Create")}
               >
                 <Text className="text-white text-md tracking-widest font-bold text-center">
                   CREATE
