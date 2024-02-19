@@ -21,6 +21,27 @@ export const Styles = StyleSheet.create({
     fontSize: 15,
     letterSpacing: 3,
   },
+  inlinesForDropDown: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 12,
+    letterSpacing: 3,
+  },
+  emptyInputText: {
+    borderWidth: "2",
+    borderColor: "#475569",
+    opacity: 0.4,
+    borderStyle: "solid",
+    borderRadius: 20,
+    height: 50,
+  },
+  filledInputText: {
+    backgroundColor: "#FED7AA",
+    borderRadius: 20,
+    height: 50,
+    borderWidth: "2",
+    borderColor: "#475569",
+    borderStyle: "solid",
+  },
 });
 
 //export default Styles;
