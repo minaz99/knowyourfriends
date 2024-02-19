@@ -128,7 +128,7 @@ const Create = ({ navigation, route }) => {
                       : Styles.emptyInputText,
                     headlines,
                   ]}
-                  className="text-lg w-44  text-center text-slate-600/90 "
+                  className="text-lg w-44  text-center text-slate-600 "
                   onChangeText={setUsername}
                 ></TextInput>
               </View>
@@ -141,14 +141,7 @@ const Create = ({ navigation, route }) => {
                 Language
               </Text>
 
-              <View
-                /*style={
-                  language !== ""
-                    ? Styles.filledInputText
-                    : Styles.emptyInputText
-                }*/
-                className="m-auto"
-              >
+              <View className="m-auto">
                 <SelectList
                   data={["English", "Egyptian"]}
                   placeholder="Language"
@@ -163,7 +156,12 @@ const Create = ({ navigation, route }) => {
                       width: 180,
                     },
                   ]}
-                  inputStyles={[Styles.headlines, { color: "#0f172a" }]}
+                  inputStyles={[
+                    Styles.headlines,
+                    language !== ""
+                      ? { color: "#475569" }
+                      : { color: "#0f172a" },
+                  ]}
                   dropdownTextStyles={[Styles.inlines, { color: "#475569" }]}
                   dropdownStyles={{ borderRadius: 20 }}
                 />
@@ -186,7 +184,7 @@ const Create = ({ navigation, route }) => {
                       : Styles.emptyInputText,
                     headlines,
                   ]}
-                  className="text-lg w-44 text-center text-slate-600/90"
+                  className="text-lg w-44 text-center text-slate-600"
                   onChangeText={setPlayers}
                   keyboardType="numeric"
                 ></TextInput>
@@ -210,7 +208,7 @@ const Create = ({ navigation, route }) => {
                       : Styles.emptyInputText,
                     headlines,
                   ]}
-                  className="text-lg w-44 text-center text-slate-600/90"
+                  className="text-lg w-44 text-center text-slate-600"
                   onChangeText={setRounds}
                   keyboardType="numeric"
                 ></TextInput>
@@ -233,7 +231,7 @@ const Create = ({ navigation, route }) => {
                       : Styles.emptyInputText,
                     headlines,
                   ]}
-                  className="text-lg w-44 text-center text-slate-600/90"
+                  className="text-lg w-44 text-center text-slate-600"
                   onChangeText={setPassword}
                 ></TextInput>
               </View>
