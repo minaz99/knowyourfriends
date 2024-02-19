@@ -35,7 +35,7 @@ export const Styles = StyleSheet.create({
     height: 50,
   },
   filledInputText: {
-    backgroundColor: "#FED7AA",
+    backgroundColor: "#dcfce7",
     borderRadius: 20,
     height: 50,
     borderWidth: 2,
