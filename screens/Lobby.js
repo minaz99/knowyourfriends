@@ -9,8 +9,8 @@ const Lobby = ({ navigation, route }) => {
   });
   const { gameID, player, socket } = route.params;
   const images = {
-    coffee: require("../src/coffee-beans.png"),
-    tea: require("../src/tea-bag.png"),
+    coffee: require("../src/lion.png"),
+    tea: require("../src/snail.png"),
   };
   const [playersJoined, setPlayersJoined] = useState("");
   const [players, setPlayers] = useState([]);
