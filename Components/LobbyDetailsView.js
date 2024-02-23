@@ -39,10 +39,7 @@ const LobbyDetailsView = (props) => {
       className="  h-52 rounded-t-full  p-6 inset-x-0 bottom-0 absolute"
       colors={["#c71d6f", "#d09693"]}
     >
-      <TouchableOpacity
-        onPress={() => props.setShowLobbyDetails(false)}
-        className="  h-52 rounded-t-lg  p-8 inset-x-0 bottom-0 absolute"
-      >
+      <TouchableOpacity className="  h-52 rounded-t-lg  p-8 inset-x-0 bottom-0 absolute">
         <View className="space-y-3 items-center m-auto bottom-14 inset-x-0 absolute ">
           <View className="flex-row space-x-2">
             <Text className="text-white " style={Styles.headlines}>
