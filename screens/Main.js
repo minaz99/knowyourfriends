@@ -6,8 +6,15 @@ import {
   Image,
   Animated,
   Easing,
+  Platform,
+  StatusBar,
 } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 //import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -19,6 +26,11 @@ import {
 import QuestionOptionsCircle from "../Components/QuestionOptionsCircle";
 import { Styles } from "../styles/Styles";
 const Main = ({ navigation }) => {
+  const fonts = StyleSheet.create({
+    InterSemi: {
+      fontFamily: "Inter_600SemiBold",
+    },
+  });
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
@@ -65,9 +77,12 @@ const Main = ({ navigation }) => {
     Inter_600SemiBold,
     Inter_700Bold,
   });
-  /*if (!fontsLoaded && !fontError) {
-    return null;
-  }*/
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded || fontError) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
 
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
@@ -75,12 +90,17 @@ const Main = ({ navigation }) => {
 
   return (
     <LinearGradient colors={["#df89b5", "#bfd9fe"]}>
-      <SafeAreaView className="h-full  ">
-        <View className="space-y-6">
+      <SafeAreaView
+        className="h-full"
+        style={Platform.OS === "ios" ? "" : Styles.mainStyleAnd}
+      >
+        <StatusBar hidden={true} />
+        <View className="space-y-6 ">
           <Animated.Text
-            style={[Styles.title, AS.animatedStyles]}
-            numberOfLines={2}
-            className=" text-center mt-6 text-slate-600"
+            style={[Styles.title, AS.animatedStyles, fonts.InterSemi]}
+            numberOfLines={1}
+            className=" text-center p-2  text-slate-600"
+            adjustsFontSizeToFit={true}
           >
             Do you know your friends
           </Animated.Text>
