@@ -8,16 +8,11 @@ import {
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Card from "../Components/Card";
 import PlayersJoined from "../Components/PlayersJoined";
 import { LinearGradient } from "expo-linear-gradient";
 import { Styles } from "../styles/Styles";
-import {
-  ArrowLeftCircleIcon,
-  EllipsisHorizontalCircleIcon,
-} from "react-native-heroicons/outline";
+import { ArrowLeftCircleIcon } from "react-native-heroicons/outline";
 import * as Progress from "react-native-progress";
-import LobbyDetails from "../Components/LobbyDetails";
 import LobbyDetailsView from "../Components/LobbyDetailsView";
 const Lobby = ({ navigation, route }) => {
   useLayoutEffect(() => {
@@ -27,7 +22,6 @@ const Lobby = ({ navigation, route }) => {
 
   const [playersJoined, setPlayersJoined] = useState("");
   const [players, setPlayers] = useState([]);
-  const [showLobbyDetails, setShowLobbyDetails] = useState(false);
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
