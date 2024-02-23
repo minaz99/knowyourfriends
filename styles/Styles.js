@@ -2,7 +2,7 @@ import { StyleSheet, Platform } from "react-native";
 
 export const Styles = StyleSheet.create({
   title: {
-    fontFamily: "Inter-SemiBold",
+    fontFamily: "Inter_600SemiBold",
     fontSize: 20,
     letterSpacing: 5,
   },
@@ -20,22 +20,22 @@ export const Styles = StyleSheet.create({
     padding: 18,
   },
   question: {
-    fontFamily: "Inter-SemiBold",
+    fontFamily: "Inter_600SemiBold",
     fontSize: 10,
     letterSpacing: 3,
   },
   headlines: {
-    fontFamily: "Inter-SemiBold",
+    fontFamily: "Inter_600SemiBold",
     fontSize: 17,
     letterSpacing: 4,
   },
   inlines: {
-    fontFamily: "Inter-SemiBold",
+    fontFamily: "Inter_600SemiBold",
     fontSize: 15,
     letterSpacing: 3,
   },
   inlinesForDropDown: {
-    fontFamily: "Inter-SemiBold",
+    fontFamily: "Inter_600SemiBold",
     fontSize: 12,
     letterSpacing: 3,
   },
