@@ -14,10 +14,13 @@ export const Styles = StyleSheet.create({
     padding: 12,
   },
   lobbyIOS: {
-    padding: 8,
+    padding: 14,
   },
   lobbyAnd: {
     padding: 18,
+  },
+  GameAnd: {
+    marginTop: 18,
   },
   question: {
     fontFamily: "Inter_600SemiBold",
