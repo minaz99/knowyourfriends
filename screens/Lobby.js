@@ -121,8 +121,7 @@ const Lobby = ({ navigation, route }) => {
           </View>
         </View>
 
-        <LobbyDetailsView
-          setShowLobbyDetails={setShowLobbyDetails}
+        <LobbyDetailsView          
           password={password}
           id={gameID}
           playersJoined={playersJoined}
