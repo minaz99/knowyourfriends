@@ -80,8 +80,11 @@ const QuestionOptionsCircle = (props) => {
           </View>
         </View>
       </Animated.View>
-      <View className="flex-row  justify-around items-center">
-        <Animated.View style={[props.opacityStyle, props.animatedStyles]}>
+      <View className="flex-row  justify-evenly items-center">
+        <Animated.View
+          className="mr-4"
+          style={[props.opacityStyle, props.animatedStyles]}
+        >
           <Circle
             circleNumber={4}
             onClickCircle={onClickCircle}
@@ -96,7 +99,10 @@ const QuestionOptionsCircle = (props) => {
           style={props.style}
           startAnimation={props.startAnimation}
         />
-        <Animated.View style={[props.opacityStyle, props.animatedStyles]}>
+        <Animated.View
+          className="ml-4"
+          style={[props.opacityStyle, props.animatedStyles]}
+        >
           <Circle
             circleNumber={5}
             onClickCircle={onClickCircle}
