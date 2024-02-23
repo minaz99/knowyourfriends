@@ -1,19 +1,73 @@
-import { View, Text } from "react-native";
+import {
+  View,
+  Text,
+  Animated,
+  Easing,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Card from "../Components/Card";
 import PlayersJoined from "../Components/PlayersJoined";
+import { LinearGradient } from "expo-linear-gradient";
+import { Styles } from "../styles/Styles";
+import {
+  ArrowLeftCircleIcon,
+  EllipsisHorizontalCircleIcon,
+} from "react-native-heroicons/outline";
+import * as Progress from "react-native-progress";
+import LobbyDetails from "../Components/LobbyDetails";
+import LobbyDetailsView from "../Components/LobbyDetailsView";
 const Lobby = ({ navigation, route }) => {
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   });
-  const { gameID, player, socket } = route.params;
-  const images = {
-    coffee: require("../src/lion.png"),
-    tea: require("../src/snail.png"),
-  };
+  const { gameID, player, socket, password } = route.params;
+
   const [playersJoined, setPlayersJoined] = useState("");
   const [players, setPlayers] = useState([]);
+  const [showLobbyDetails, setShowLobbyDetails] = useState(false);
+  let yValueCreateJoin = new Animated.Value(-100);
+  let yValue = new Animated.Value(-120);
+  let opacityAnimation = new Animated.Value(0);
+  startAnimation = () => {
+    Animated.timing(yValue, {
+      toValue: 0,
+      duration: 2000,
+      useNativeDriver: true,
+      easing: Easing.bounce,
+    }).start();
+    Animated.timing(opacityAnimation, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: true,
+      //easing: Easing.bounce,
+    }).start();
+    Animated.timing(yValueCreateJoin, {
+      toValue: 0,
+      duration: 1500,
+      useNativeDriver: true,
+      easing: Easing.bounce,
+    }).start();
+  };
+  const AS = {
+    animatedStyles: {
+      transform: [
+        {
+          translateY: yValue,
+        },
+      ],
+    },
+    animatedStylesBtns: {
+      transform: [
+        {
+          translateY: yValueCreateJoin,
+        },
+      ],
+    },
+    opacityStyle: { opacity: opacityAnimation },
+  };
 
   useEffect(() => {
     socket.on("join", ({ playersJoinedStr, players }) => {
@@ -29,51 +83,58 @@ const Lobby = ({ navigation, route }) => {
         socket,
       });
     });
+    startAnimation();
   });
 
   return (
-    <SafeAreaView style={{ backgroundColor: "#92BDB5" }} className="h-full ">
-      <View className="flex-row">
-        <Text className="flex-1"></Text>
-        <Text className="p-4 text-slate-600 tracking-widest font-bold text-lg">
-          #{player.username}
-        </Text>
-      </View>
-      <Text className="my-8 text-white text-center text-2xl font-bold tracking-widest">
-        Lobby
-      </Text>
-      <View className="space-y-3">
-        <Text
-          style={{ color: "#DEEBE9" }}
-          className="text-center text-lg font-bold tracking-widest"
+    <LinearGradient colors={["#df89b5", "#bfd9fe"]}>
+      <SafeAreaView
+        style={Platform.OS === "ios" ? Styles.lobbyIOS : Styles.lobbyAnd}
+        className="h-full "
+      >
+        <View className="">
+          <TouchableOpacity onPress={() => navigation.goBack()} className="">
+            <ArrowLeftCircleIcon color={"#475569"} height={32} width={32} />
+          </TouchableOpacity>
+          <Text
+            style={[Styles.title /*AS.animatedStyles, AS.opacityStyle*/]}
+            className="text-slate-600  text-center text-2xl font-bold tracking-widest"
+          >
+            Lobby
+          </Text>
+        </View>
+        <View
+          //  style={[AS.opacityStyle, AS.animatedStyles]}
+          className="space-y-3 relative "
         >
-          Waiting for players to join
-        </Text>
-        <Text
-          style={{ color: "#DEEBE9" }}
-          className="text-center text-lg font-bold tracking-widest"
-        >
-          Game ID: {gameID}
-        </Text>
-        <Text
-          style={{ color: "#FDE68A" }}
-          className="text-center text-lg font-bold tracking-widest"
-        >
-          Players joined: {playersJoined}
-        </Text>
-        <PlayersJoined players={players} />
-      </View>
-      <View className="flex-row space-x-6  mt-8 mx-auto">
-        <Card color="#9F92BD" option={"Coffee"} image={images.coffee} />
-        <Text className="font-bold  m-auto pr-4 text-white text-lg tracking-widest">
-          OR
-        </Text>
-        <Card color="#BD929A" option={"Tea"} image={images.tea} />
-      </View>
-      <Text className="p-8 text-white text-lg tracking-widest">
-        Something to think about while waiting...
-      </Text>
-    </SafeAreaView>
+          <PlayersJoined players={players} />
+          <View className="space-x-6 flex-row items-center mx-auto ">
+            <Text
+              style={Styles.headlines}
+              className="text-center text-white text-lg font-bold tracking-widest"
+            >
+              Waiting for players
+            </Text>
+
+            <Progress.Circle
+              animated={true}
+              borderWidth={3}
+              size={30}
+              indeterminate={true}
+              color="white"
+              showsText={true}
+            />
+          </View>
+        </View>
+
+        <LobbyDetailsView
+          setShowLobbyDetails={setShowLobbyDetails}
+          password={password}
+          id={gameID}
+          playersJoined={playersJoined}
+        />
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 
