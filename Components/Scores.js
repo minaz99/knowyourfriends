@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-
 const Scores = (props) => {
   const [scoresClicked, setScoresClicked] = useState(false);
   return scoresClicked ? (
@@ -32,7 +31,7 @@ const Scores = (props) => {
   ) : (
     <TouchableOpacity
       onPress={() => setScoresClicked(true)}
-      className="bg-white/80 p-4 rounded-t-lg"
+      className="bg-white p-4 rounded-t-lg"
     >
       <Text className="text-slate-600 font-bold text-lg text-center tracking-widest">
         Scores ↑
