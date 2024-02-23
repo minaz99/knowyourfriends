@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Animated,
   Easing,
+  Platform,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import axios from "axios";
@@ -78,6 +79,7 @@ const Join = ({ navigation }) => {
           player: resp.data.player,
           socket,
           gameID,
+          password: password,
         });
       })
       .catch((error) => console.log(error));
@@ -85,9 +87,13 @@ const Join = ({ navigation }) => {
 
   return (
     <LinearGradient colors={["#df89b5", "#bfd9fe"]}>
-      <SafeAreaView className="h-full ">
+      <SafeAreaView className="h-full p-6">
         <Animated.View style={[AS.opacityStyle, AS.animatedStyles]}>
-          <TouchableOpacity onPress={() => navigation.goBack()} className="p-6">
+          <TouchableOpacity
+            style={Platform.OS === "ios" ? Styles.createJoinStyleIOS : ""}
+            onPress={() => navigation.goBack()}
+            className=""
+          >
             <ArrowLeftCircleIcon color={"#475569"} height={32} width={32} />
           </TouchableOpacity>
         </Animated.View>
@@ -173,16 +179,21 @@ const Join = ({ navigation }) => {
         </Animated.View>
         <Animated.View style={[AS.animatedStylesBtns, AS.opacityStyle]}>
           <TouchableOpacity
-            style={{ backgroundColor: "#9F92BD" }}
-            className="rounded-3xl w-2/4 p-6 mx-auto "
+            // style={{ backgroundColor: "#9F92BD" }}
+            // className="rounded-3xl w-2/4 p-6 mx-auto "
             onPress={async () => await joinGame()}
           >
-            <Text
-              style={Styles.inlines}
-              className="text-white text-md tracking-widest font-bold text-center"
+            <LinearGradient
+              className="rounded-3xl w-2/4 p-6 mx-auto "
+              colors={["#ff758c", "#ff7eb3"]}
             >
-              JOIN
-            </Text>
+              <Text
+                style={Styles.inlines}
+                className="text-white text-md tracking-widest font-bold text-center"
+              >
+                JOIN
+              </Text>
+            </LinearGradient>
           </TouchableOpacity>
         </Animated.View>
       </SafeAreaView>
