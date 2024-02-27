@@ -1,16 +1,18 @@
 import { View, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import Question from "./Question";
+import { Styles } from "../styles/Styles";
+import { LinearGradient } from "expo-linear-gradient";
 const Selection = (props) => {
-  const colorAnswerSelected = "#3A4C48";
-  const [a1Color, setA1Color] = useState(props.a1Color);
-  const [a2Color, setA2Color] = useState(props.a2Color);
+  const colorAnswerSelected = ["#29323c", "#485563"];
+  const [a1Color, setA1Color] = useState(props.gradientA1);
+  const [a2Color, setA2Color] = useState(props.gradientA2);
   const [selected, setSelected] = useState(false);
   const chooseAnswer = (answer) => {
     setSelected(true);
     if (answer === 1) {
       setA1Color(colorAnswerSelected);
-      setA2Color(props.a2Color);
+      setA2Color(props.gradientA2);
       props.socket.emit("selected", {
         gameID: props.gameID,
         playerID: props.playerID,
@@ -18,7 +20,7 @@ const Selection = (props) => {
       });
     } else if (answer === 2) {
       setA2Color(colorAnswerSelected);
-      setA1Color(props.a1Color);
+      setA1Color(props.gradientA1);
       props.socket.emit("selected", {
         gameID: props.gameID,
         playerID: props.playerID,
@@ -43,21 +45,31 @@ const Selection = (props) => {
     });
 
     props.socket.on("selection finished", () => {
-      setA1Color(props.a1Color);
-      setA2Color(props.a2Color);
+      setA1Color(props.gradientA1);
+      setA2Color(props.gradientA2);
       setSelected(false);
     });
   }, []);
 
   return (
     <View>
-      <View className="space-y-3">
+      <View className="">
         <View className="p-4 mx-auto">
-          <View className="p-2 rounded-lg bg-white">
-            <Text className="tracking-widest text-slate-600 font-bold text-lg text-center">
-              Selection phase
-            </Text>
-          </View>
+          <LinearGradient
+            //className="rounded-full"
+            colors={["#c1dfc4", "#ace0f9"]}
+            className="w-fit mx-auto p-1.5  bg-blue-200 rounded-full"
+          >
+            <View className="rounded-full bg-white p-2">
+              <Text
+                style={Styles.headlines}
+                //className="text-slate-600 text-lg font-bold tracking-widest text-center"
+                className="text-slate-600/90 "
+              >
+                Selection phase
+              </Text>
+            </View>
+          </LinearGradient>
         </View>
         <View className=" p-4">
           <Question
@@ -67,21 +79,36 @@ const Selection = (props) => {
                 ? true
                 : false
             }
-            a1Color={a1Color}
-            a2Color={a2Color}
+            a1={a1Color}
+            a2={a2Color}
             chooseAnswer={chooseAnswer}
           />
         </View>
-        <View className="mx-auto bg-white p-4 rounded-2xl">
-          <Text className="text-slate-600 tracking-widest font-bold text-md">
-            Players Selected: {props.gameDetails.gameData.playersselectedanswer}{" "}
-            / {props.gameDetails.gameData.noofplayers}
-          </Text>
-        </View>
+        <LinearGradient
+          colors={["#c1dfc4", "#ace0f9"]}
+          className="w-fit mx-auto p-1.5  bg-blue-200 rounded-full"
+        >
+          <View className="rounded-full bg-white p-2">
+            <Text
+              style={Styles.inlines}
+              //className="text-slate-600 text-lg font-bold tracking-widest text-center"
+              className="text-slate-600/90 "
+            >
+              Players Selected:{" "}
+              {props.gameDetails.gameData.playersselectedanswer} /{" "}
+              {props.gameDetails.gameData.noofplayers}
+            </Text>
+          </View>
+        </LinearGradient>
         {props.playerID !== props.gameDetails.playerGuessing.id ? (
           <Text></Text>
         ) : (
-          <Text className="pt-6 tracking-widest text-slate-600 font-bold text-md text-center">
+          <Text
+            adjustsFontSizeToFit={true}
+            numberOfLines={2}
+            style={[Styles.GameAnd, Styles.inlinesForDropDown]}
+            className="text-slate-600 text-center p-4"
+          >
             Your turn to guess, wait for players to finish selecting
           </Text>
         )}
