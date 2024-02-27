@@ -1,73 +1,96 @@
 import { View, Text, Touchable, TouchableOpacity } from "react-native";
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
+import { Styles } from "../styles/Styles";
 const Question = (props) => {
   const questionFormatter = (question) => {
     let situation = question.split(":")[0];
-    situation = situation.concat(" . . . . . . .");
+    situation = situation.concat(" . . . .");
     const a1 = question.split(":")[1].split("||")[0];
     const a2 = question.split(":")[1].split("||")[1];
     return { situation: situation, a1: a1, a2: a2 };
   };
 
   return (
-    <View className="space-y-6 mx-auto">
-      <View className="bg-slate-600 p-2 rounded-2xl">
-        <Text className="text-white tracking-widest text-lg font-medium">
-          {questionFormatter(props.question).situation}
-        </Text>
-      </View>
-      {props.isSelecting ? (
-        <View className="space-y-3 p-4">
-          <TouchableOpacity
-            onPress={() => props.chooseAnswer(1)}
-            //className="p-2 rounded-2xl"
-            //style={{ backgroundColor: props.a1Color }}
+    <LinearGradient
+      className="rounded-3xl bg-white/60 p-2  "
+      colors={["#c1dfc4", "#ace0f9"]}
+    >
+      <View className="rounded-3xl bg-white/60 p-2 ">
+        <View className="p-4">
+          <Text
+            numberOfLines={2}
+            style={Styles.inlines}
+            className="text-slate-600 "
           >
-            <LinearGradient
-              className="p-2 rounded-2xl"
-              colors={["#1e3c72", "#2a5298"]}
-            >
-              <Text className="text-white text-center tracking-widest font-medium text-lg">
-                {questionFormatter(props.question).a1}
-              </Text>
+            {questionFormatter(props.question).situation}
+          </Text>
+        </View>
+        {props.isSelecting ? (
+          <View className="space-y-2 p-4">
+            <LinearGradient className="p-1.5 rounded-full" colors={props.a1}>
+              <TouchableOpacity
+                onPress={() => props.chooseAnswer(1)}
+                className="p-2 bg-white rounded-full"
+              >
+                <Text
+                  adjustsFontSizeToFit={true}
+                  numberOfLines={2}
+                  style={Styles.inlines}
+                  className="text-slate-600 text-center "
+                >
+                  {questionFormatter(props.question).a1}
+                </Text>
+              </TouchableOpacity>
             </LinearGradient>
-          </TouchableOpacity>
-          <Text className="text-white text-lg font-bold mx-auto">OR</Text>
-          <TouchableOpacity
-            onPress={() => props.chooseAnswer(2)}
-            className="p-2 rounded-2xl"
-            style={{ backgroundColor: props.a2Color }}
-          >
-            <Text className="text-white text-center tracking-widest font-medium text-lg">
-              {questionFormatter(props.question).a2}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      ) : (
-        <View className="space-y-3 p-4">
-          <TouchableOpacity
-            className="p-2 rounded-2xl"
-            style={{ backgroundColor: props.a1Color }}
-            disabled
-          >
-            <Text className="text-white text-center tracking-widest font-medium text-lg">
-              {questionFormatter(props.question).a1}
-            </Text>
-          </TouchableOpacity>
-          <Text className="text-white text-lg font-bold mx-auto">OR</Text>
-          <TouchableOpacity
-            className="p-2 rounded-2xl"
-            style={{ backgroundColor: props.a2Color }}
-            disabled
-          >
-            <Text className="text-white text-center tracking-widest font-medium text-lg">
-              {questionFormatter(props.question).a2}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    </View>
+            {/* <Text className="text-white text-lg font-bold mx-auto">OR</Text>*/}
+            <LinearGradient className="p-1.5 rounded-full" colors={props.a2}>
+              <TouchableOpacity
+                onPress={() => props.chooseAnswer(2)}
+                className="p-2 bg-white rounded-full"
+              >
+                <Text
+                  adjustsFontSizeToFit={true}
+                  numberOfLines={2}
+                  style={Styles.inlines}
+                  className="text-slate-600 text-center "
+                >
+                  {questionFormatter(props.question).a2}
+                </Text>
+              </TouchableOpacity>
+            </LinearGradient>
+          </View>
+        ) : (
+          <View className="space-y-2 p-4">
+            <LinearGradient className="p-1.5 rounded-full" colors={props.a1}>
+              <TouchableOpacity className="p-2 bg-white rounded-full" disabled>
+                <Text
+                  numberOfLines={2}
+                  adjustsFontSizeToFit={true}
+                  style={Styles.inlines}
+                  className="text-slate-600 text-center "
+                >
+                  {questionFormatter(props.question).a1}
+                </Text>
+              </TouchableOpacity>
+            </LinearGradient>
+            {/*<Text className="text-white text-lg font-bold mx-auto">OR</Text>*/}
+            <LinearGradient className="p-1.5 rounded-full" colors={props.a2}>
+              <TouchableOpacity className="p-2 bg-white rounded-full" disabled>
+                <Text
+                  numberOfLines={2}
+                  adjustsFontSizeToFit={true}
+                  style={Styles.inlines}
+                  className="text-slate-600 text-center "
+                >
+                  {questionFormatter(props.question).a2}
+                </Text>
+              </TouchableOpacity>
+            </LinearGradient>
+          </View>
+        )}
+      </View>
+    </LinearGradient>
   );
 };
 
