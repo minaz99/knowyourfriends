@@ -28,8 +28,7 @@ const QuestionGuessing = (props) => {
       <View className="rounded-3xl bg-white/60 p-2 mx-auto">
         <View className="p-4">
           <Text
-            numberOfLines={2}
-            adjustsFontSizeToFit={true}
+            numberOfLines={3}
             style={Styles.inlines}
             className="text-slate-600 "
           >
