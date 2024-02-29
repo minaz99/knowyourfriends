@@ -101,7 +101,12 @@ const Selection = (props) => {
           </View>
         </LinearGradient>
         {props.playerID !== props.gameDetails.playerGuessing.id ? (
-          <Text></Text>
+          <Text
+            className="text-center p-4 text-slate-600"
+            style={Styles.inlinesForDropDown}
+          >
+            You are now selecting
+          </Text>
         ) : (
           <Text
             adjustsFontSizeToFit={true}
