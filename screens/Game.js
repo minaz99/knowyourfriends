@@ -33,7 +33,7 @@ const Game = ({ navigation, route }) => {
   }, []);
   return (
     <LinearGradient colors={["#df89b5", "#bfd9fe"]}>
-      <SafeAreaView className="h-full flex relativep ">
+      <SafeAreaView className="h-full flex relative  ">
         <View
           style={Platform.OS === "android" ? Styles.GameAnd : ""}
           className="flex-row justify-between p-4 "
