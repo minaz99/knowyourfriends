@@ -1,9 +1,12 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-
+import { LinearGradient } from "expo-linear-gradient";
+import { Styles } from "../styles/Styles";
+import { useNavigation } from "@react-navigation/native";
 const GameFinished = (props) => {
+  const navigation = useNavigation();
   return (
-    <View className="rounded-t-lg bg-white/40 h-screen p-4 space-y-3">
+    <View className="rounded-t-lg bg-white h-screen p-4 space-y-3">
       <Text className="text-slate-600 font-bold text-lg text-center tracking-widest">
         Scores ↓
       </Text>
@@ -12,58 +15,103 @@ const GameFinished = (props) => {
       </Text>
       {props.scores.map((player, index) => {
         return index === 0 ? (
-          <View
-            key={player.id}
-            className="rounded-2xl flex-row p-2 bg-amber-400/90"
+          <LinearGradient
+            className="rounded-2xl"
+            colors={["#f6d365", "#FACC6B"]}
           >
-            <Text className="text-slate-600 text-lg tracking-widest font-bold flex-1">
-              #{player.username}
-            </Text>
-            <Text className="text-slate-600 text-lg tracking-widest font-bold">
-              {player.score}
-            </Text>
-          </View>
+            <View key={player.id} className="rounded-2xl flex-row p-2 ">
+              <Text
+                style={Styles.headlines}
+                className="text-slate-600 text-lg tracking-widest font-bold flex-1"
+              >
+                #{player.username}
+              </Text>
+              <Text
+                style={Styles.headlines}
+                className="text-slate-600 text-lg tracking-widest font-bold"
+              >
+                {player.score}
+              </Text>
+            </View>
+          </LinearGradient>
         ) : index === 1 ? (
-          <View
-            key={player.id}
-            className="rounded-2xl flex-row p-2 bg-neutral-600/90"
+          <LinearGradient
+            className="rounded-2xl"
+            colors={["#EDF1F4", "#C3CBDC"]}
           >
-            <Text className="text-white text-lg tracking-widest font-bold flex-1">
-              #{player.username}
-            </Text>
-            <Text className="text-white text-lg tracking-widest font-bold">
-              {player.score}
-            </Text>
-          </View>
+            <View key={player.id} className="  flex-row p-2 ">
+              <Text
+                style={Styles.headlines}
+                className="text-slate-600 text-lg tracking-widest font-bold flex-1"
+              >
+                #{player.username}
+              </Text>
+              <Text
+                style={Styles.headlines}
+                className="text-slate-600 text-lg tracking-widest font-bold"
+              >
+                {player.score}
+              </Text>
+            </View>
+          </LinearGradient>
         ) : index === 2 ? (
-          <View
-            key={player.id}
-            className="rounded-2xl flex-row p-2 bg-amber-800/90"
+          <LinearGradient
+            className="rounded-2xl"
+            colors={["#c79081", "#dfa579"]}
           >
-            <Text className="text-white text-lg tracking-widest font-bold flex-1">
-              #{player.username}
-            </Text>
-            <Text className="text-white text-lg tracking-widest font-bold">
-              {player.score}
-            </Text>
-          </View>
+            <View key={player.id} className=" flex-row p-2 ">
+              <Text
+                style={Styles.headlines}
+                className="text-slate-600 text-lg tracking-widest font-bold flex-1"
+              >
+                #{player.username}
+              </Text>
+              <Text
+                style={Styles.headlines}
+                className="text-slate-600 text-lg tracking-widest font-bold"
+              >
+                {player.score}
+              </Text>
+            </View>
+          </LinearGradient>
         ) : (
-          <View
-            key={player.id}
-            className="rounded-2xl flex-row p-2 bg-slate-600"
+          <LinearGradient
+            className="rounded-2xl"
+            colors={["#243949", "#517fa4"]}
           >
-            <Text className="text-white text-lg tracking-widest font-bold flex-1">
-              #{player.username}
-            </Text>
-            <Text className="text-white text-lg tracking-widest font-bold">
-              {player.score}
-            </Text>
-          </View>
+            <View
+              key={player.id}
+              className="rounded-2xl flex-row p-2 bg-slate-600"
+            >
+              <Text
+                style={Styles.headlines}
+                className="text-white text-lg tracking-widest font-bold flex-1"
+              >
+                #{player.username}
+              </Text>
+              <Text
+                style={Styles.headlines}
+                className="text-white text-lg tracking-widest font-bold"
+              >
+                {player.score}
+              </Text>
+            </View>
+          </LinearGradient>
         );
       })}
       <Text className="text-lg text-center text-slate-600 tracking-widest font-bold">
         Game Finished
       </Text>
+      <LinearGradient
+        className="mx-auto p-2 rounded-2xl"
+        colors={["#64b3f4", "#bfd9fe"]}
+      >
+        <TouchableOpacity onPress={() => navigation.navigate("Main")}>
+          <Text style={Styles.headlines} className="text-slate-600">
+            Play again
+          </Text>
+        </TouchableOpacity>
+      </LinearGradient>
     </View>
   );
 };
