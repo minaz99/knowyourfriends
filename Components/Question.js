@@ -19,7 +19,7 @@ const Question = (props) => {
       <View className="rounded-3xl bg-white/60 p-2 ">
         <View className="p-4">
           <Text
-            numberOfLines={2}
+            numberOfLines={3}
             style={Styles.inlines}
             className="text-slate-600 "
           >
