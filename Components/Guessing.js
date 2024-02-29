@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import QuestionGuessing from "./QuestionGuessing";
 import { LinearGradient } from "expo-linear-gradient";
@@ -73,12 +73,7 @@ const Guessing = (props) => {
     });
   }, []);
   return (
-    <View className=" flex rounded-t-2xl">
-      {/*<LinearGradient
-        //className="rounded-full"
-        colors={["#c1dfc4", "#ace0f9"]}
-        className="w-fit mx-auto p-1.5x bg-blue-200 rounded-2xl"
-      >*/}
+    <View className="">
       <View className="flex-row items-center mx-auto m-auto mt-4 ">
         <LinearGradient
           //className="rounded-full"
@@ -118,7 +113,7 @@ const Guessing = (props) => {
 
       {/*</LinearGradient>*/}
 
-      <View className="mt-4">
+      <ScrollView className="overflow-scroll-y space-y-3 ">
         <View className="p-4 m-auto">
           <QuestionGuessing
             isGuessing={
@@ -153,21 +148,48 @@ const Guessing = (props) => {
             </Text>
           </View>
         </LinearGradient>
+        <LinearGradient
+          colors={["#c1dfc4", "#ace0f9"]}
+          className="rounded-full  mx-auto  p-1.5"
+        >
+          <View className="rounded-full m-auto text-center bg-white p-3">
+            <Text
+              style={[Styles.inlinesForDropDown]}
+              className="text-center   text-slate-600"
+            >
+              +{points} pts
+            </Text>
+          </View>
+        </LinearGradient>
+        {/* <View className="py-3">
 
-        <View className="py-3">
           <Text
             style={Styles.title}
             className="text-white text-lg font-bold tracking-widest text-center"
           >
             +{points} pts
           </Text>
-        </View>
+          </View>*/}
+        {props.playerID === props.gameDetails.playerGuessing.id ? (
+          <View className="mx-auto">
+            <Text className="text-slate-600" style={Styles.inlinesForDropDown}>
+              You are now guessing
+            </Text>
+          </View>
+        ) : (
+          <View className="mx-auto">
+            <Text className="text-slate-600" style={Styles.inlinesForDropDown}>
+              {props.gameDetails.playerGuessing.username} is now guessing
+            </Text>
+          </View>
+        )}
+
         {guessed !== null &&
         props.playerID === props.gameDetails.playerGuessing.id ? (
           <LinearGradient
             //className="rounded-full"
             colors={["#c1dfc4", "#ace0f9"]}
-            className="w-fit mx-auto p-1.5 bg-blue-200 rounded-full"
+            className="w-fit  mx-auto p-1.5 bg-blue-200 rounded-full "
           >
             <TouchableOpacity
               onPress={guessNext}
@@ -184,7 +206,7 @@ const Guessing = (props) => {
         ) : (
           <View></View>
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 };
