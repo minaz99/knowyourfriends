@@ -14,10 +14,19 @@ import io from "socket.io-client";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftCircleIcon } from "react-native-heroicons/outline";
 import { Styles } from "../styles/Styles";
+import { Audio } from "expo-av";
 const Join = ({ navigation }) => {
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
+  async function playSound() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/audio/ButtonClick.mp3")
+    );
+    console.log("Playing Sound");
+    await sound.playAsync();
+  }
   startAnimation = () => {
     Animated.timing(yValue, {
       toValue: 0,
@@ -91,7 +100,10 @@ const Join = ({ navigation }) => {
         <Animated.View style={[AS.opacityStyle, AS.animatedStyles]}>
           <TouchableOpacity
             style={Platform.OS === "ios" ? Styles.createJoinStyleIOS : ""}
-            onPress={() => navigation.goBack()}
+            onPress={() => {
+              playSound();
+              navigation.goBack();
+            }}
             className=""
           >
             <ArrowLeftCircleIcon color={"#475569"} height={32} width={32} />
@@ -181,7 +193,10 @@ const Join = ({ navigation }) => {
           <TouchableOpacity
             // style={{ backgroundColor: "#9F92BD" }}
             // className="rounded-3xl w-2/4 p-6 mx-auto "
-            onPress={async () => await joinGame()}
+            onPress={async () => {
+              playSound();
+              await joinGame();
+            }}
           >
             <LinearGradient
               className="rounded-3xl w-2/4 p-6 mx-auto "
