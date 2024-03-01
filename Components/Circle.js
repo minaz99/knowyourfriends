@@ -38,9 +38,10 @@ const Circle = (props) => {
       colors={["#a8edea", "#fed6e3"]}
     >
       <TouchableOpacity
-        onPress={() =>
-          props.onClickCircle(props.data, props.dataInView, props.circleNumber)
-        }
+        onPress={() => {
+          props.playSound();
+          props.onClickCircle(props.data, props.dataInView, props.circleNumber);
+        }}
         className="m-auto "
       >
         <Animated.View className="m-auto " style={animatedStyle}>
