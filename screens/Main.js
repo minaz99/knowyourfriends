@@ -25,7 +25,30 @@ import {
 } from "@expo-google-fonts/inter";
 import QuestionOptionsCircle from "../Components/QuestionOptionsCircle";
 import { Styles } from "../styles/Styles";
+import { Audio } from "expo-av";
 const Main = ({ navigation }) => {
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  async function playSound() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/audio/ButtonClick.mp3")
+    );
+    console.log("Playing Sound");
+    await sound.playAsync();
+  }
+  async function playBackgroundMusic() {
+    console.log("Loading Music");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/audio/SwingBackgroundMusic.mp3")
+    );
+    //console.log("Playing Sound");
+    if (!isMusicPlaying) {
+      await sound.playAsync();
+      await sound.setIsLoopingAsync(true);
+      setIsMusicPlaying(true);
+    }
+  }
+
   const fonts = StyleSheet.create({
     InterSemi: {
       fontFamily: "Inter_600SemiBold",
@@ -34,7 +57,7 @@ const Main = ({ navigation }) => {
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
-  startAnimation = () => {
+  startAnimation = async () => {
     Animated.timing(yValue, {
       toValue: 0,
       duration: 2500,
@@ -73,6 +96,9 @@ const Main = ({ navigation }) => {
   };
 
   startAnimation();
+  useEffect(() => {
+    playBackgroundMusic();
+  }, [isMusicPlaying]);
   let [fontsLoaded, fontError] = useFonts({
     Inter_600SemiBold,
     Inter_700Bold,
@@ -111,6 +137,7 @@ const Main = ({ navigation }) => {
               opacityStyle={AS.opacityStyle}
               style={Styles.question}
               startAnimation={startAnimation}
+              playSound={playSound}
             />
           </View>
         </View>
@@ -125,7 +152,10 @@ const Main = ({ navigation }) => {
             >
               <TouchableOpacity
                 className="p-6"
-                onPress={() => navigation.navigate("Create")}
+                onPress={() => {
+                  playSound();
+                  navigation.navigate("Create");
+                }}
               >
                 <Text className="text-white text-md tracking-widest font-bold text-center">
                   CREATE
@@ -138,7 +168,10 @@ const Main = ({ navigation }) => {
             >
               <TouchableOpacity
                 className=" p-6"
-                onPress={() => navigation.navigate("Join")}
+                onPress={() => {
+                  playSound();
+                  navigation.navigate("Join");
+                }}
               >
                 <Text className="text-white text-md tracking-widest font-bold text-center">
                   JOIN
@@ -153,7 +186,7 @@ const Main = ({ navigation }) => {
               className="rounded-full"
               colors={["#fdfbfb", "#ebedee"]}
             >
-              <TouchableOpacity className=" p-6">
+              <TouchableOpacity onPress={playSound} className=" p-6">
                 <Text className="text-slate-600  text-md tracking-widest font-bold text-center">
                   GAME RULES
                 </Text>
