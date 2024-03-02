@@ -6,17 +6,35 @@ import Selection from "../Components/Selection";
 import GameFinished from "../Components/GameFinished";
 import { Styles } from "../styles/Styles";
 import { LinearGradient } from "expo-linear-gradient";
+import { Audio } from "expo-av";
 const Game = ({ navigation, route }) => {
-  const { gameID, gameDetails, player, socket } = route.params;
+  const { gameID, gameDetails, player, socket, bgMusic } = route.params;
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   });
   const [gameInfo, setGameInfo] = useState(gameDetails);
   const [timer, setTimer] = useState(60);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const colorA1 = "#ef4444";
   const colorA2 = "#f59e0b";
   const gradientA1 = ["#1e3c72", "#2a5298"];
   const gradientA2 = ["#ff758c", "#ff7eb3"];
+  const gameMusic = React.useRef(new Audio.Sound());
+  async function playBackgroundMusic() {
+    console.log("Loading Music");
+    await gameMusic.current.loadAsync(
+      require("../assets/audio/MagicInTheAirGameMusic.mp3")
+    );
+
+    //console.log("Playing Sound");
+    if (!isMusicPlaying) {
+      await bgMusic.current.stopAsync();
+      await gameMusic.current.playAsync();
+      await gameMusic.current.setIsLoopingAsync(true);
+      setIsMusicPlaying(true);
+    }
+  }
+  playBackgroundMusic();
   useEffect(() => {
     socket.on("start timer", () => {
       if (player.id === gameInfo.gameData.hostid) {
@@ -95,6 +113,8 @@ const Game = ({ navigation, route }) => {
         ) : (
           <GameFinished
             scores={gameInfo.scores}
+            gameMusic={gameMusic}
+            bgMusic={bgMusic}
             round={`${gameInfo.gameData.currentround} / ${gameInfo.gameData.rounds}`}
           />
         )}
