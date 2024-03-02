@@ -16,7 +16,9 @@ import { ArrowLeftCircleIcon } from "react-native-heroicons/outline";
 import { SelectList } from "react-native-dropdown-select-list";
 import { Styles } from "../styles/Styles";
 import { Audio } from "expo-av";
-const Create = ({ navigation }) => {
+const Create = ({ navigation, route }) => {
+  const { bgMusic } = route.params;
+
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
@@ -92,6 +94,7 @@ const Create = ({ navigation }) => {
           socket,
           gameID: resp.data.gameID,
           password: password,
+          bgMusic: bgMusic,
         });
       })
       .catch((error) => console.log(error));
