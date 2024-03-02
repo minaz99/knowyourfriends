@@ -15,7 +15,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftCircleIcon } from "react-native-heroicons/outline";
 import { Styles } from "../styles/Styles";
 import { Audio } from "expo-av";
-const Join = ({ navigation }) => {
+const Join = ({ navigation, route }) => {
+  const { bgMusic } = route.params;
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
@@ -89,6 +90,7 @@ const Join = ({ navigation }) => {
           socket,
           gameID,
           password: password,
+          bgMusic: bgMusic,
         });
       })
       .catch((error) => console.log(error));
