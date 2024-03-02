@@ -27,7 +27,9 @@ import QuestionOptionsCircle from "../Components/QuestionOptionsCircle";
 import { Styles } from "../styles/Styles";
 import { Audio } from "expo-av";
 const Main = ({ navigation }) => {
+  const [backgroundMusicObj, setBackgroundMusicObj] = useState();
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const bgMusic = React.useRef(new Audio.Sound());
   async function playSound() {
     console.log("Loading Sound");
     const { sound } = await Audio.Sound.createAsync(
@@ -38,13 +40,14 @@ const Main = ({ navigation }) => {
   }
   async function playBackgroundMusic() {
     console.log("Loading Music");
-    const { sound } = await Audio.Sound.createAsync(
+    await bgMusic.current.loadAsync(
       require("../assets/audio/SwingBackgroundMusic.mp3")
     );
+    //setBackgroundMusicObj(sound);
     //console.log("Playing Sound");
     if (!isMusicPlaying) {
-      await sound.playAsync();
-      await sound.setIsLoopingAsync(true);
+      await bgMusic.current.playAsync();
+      await bgMusic.current.setIsLoopingAsync(true);
       setIsMusicPlaying(true);
     }
   }
@@ -154,7 +157,9 @@ const Main = ({ navigation }) => {
                 className="p-6"
                 onPress={() => {
                   playSound();
-                  navigation.navigate("Create");
+                  navigation.navigate("Create", {
+                    bgMusic: bgMusic,
+                  });
                 }}
               >
                 <Text className="text-white text-md tracking-widest font-bold text-center">
@@ -170,7 +175,7 @@ const Main = ({ navigation }) => {
                 className=" p-6"
                 onPress={() => {
                   playSound();
-                  navigation.navigate("Join");
+                  navigation.navigate("Join", { bgMusic: bgMusic });
                 }}
               >
                 <Text className="text-white text-md tracking-widest font-bold text-center">
