@@ -5,6 +5,11 @@ import { Styles } from "../styles/Styles";
 import { useNavigation } from "@react-navigation/native";
 const GameFinished = (props) => {
   const navigation = useNavigation();
+  async function musicHandler() {
+    await props.gameMusic.current.stopAsync();
+    await props.bgMusic.current.playAsync();
+  }
+  musicHandler();
   return (
     <View className="rounded-t-lg bg-white h-screen p-4 space-y-3">
       <Text className="text-slate-600 font-bold text-lg text-center tracking-widest">
