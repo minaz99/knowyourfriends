@@ -18,7 +18,7 @@ const Lobby = ({ navigation, route }) => {
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   });
-  const { gameID, player, socket, password } = route.params;
+  const { gameID, player, socket, password, bgMusic } = route.params;
 
   const [playersJoined, setPlayersJoined] = useState("");
   const [players, setPlayers] = useState([]);
@@ -75,6 +75,7 @@ const Lobby = ({ navigation, route }) => {
         currentStage,
         player,
         socket,
+        bgMusic,
       });
     });
     startAnimation();
@@ -121,7 +122,7 @@ const Lobby = ({ navigation, route }) => {
           </View>
         </View>
 
-        <LobbyDetailsView          
+        <LobbyDetailsView
           password={password}
           id={gameID}
           playersJoined={playersJoined}
