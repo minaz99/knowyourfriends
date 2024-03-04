@@ -28,6 +28,14 @@ const Join = ({ navigation, route }) => {
     console.log("Playing Sound");
     await sound.playAsync();
   }
+  async function playFieldSound() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/audio/FieldClick.mp3")
+    );
+    console.log("Playing Sound");
+    await sound.playAsync();
+  }
   startAnimation = () => {
     Animated.timing(yValue, {
       toValue: 0,
@@ -132,6 +140,7 @@ const Join = ({ navigation, route }) => {
             </Text>
             <View className="m-auto overflow-x-scroll">
               <TextInput
+                onPressIn={playFieldSound}
                 placeholderTextColor={"#0f172a"}
                 placeholder="Nickname"
                 style={[
@@ -154,6 +163,7 @@ const Join = ({ navigation, route }) => {
             </Text>
             <View className="m-auto">
               <TextInput
+                onPressIn={playFieldSound}
                 placeholder="123"
                 placeholderTextColor={"#0f172a"}
                 style={[
@@ -177,6 +187,7 @@ const Join = ({ navigation, route }) => {
             </Text>
             <View className="m-auto">
               <TextInput
+                onPressIn={playFieldSound}
                 placeholderTextColor={"#0f172a"}
                 placeholder="Password"
                 style={[
