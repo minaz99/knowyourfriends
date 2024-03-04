@@ -38,6 +38,14 @@ const Main = ({ navigation }) => {
     console.log("Playing Sound");
     await sound.playAsync();
   }
+  async function playCircleClick() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/audio/FieldClick.mp3")
+    );
+    console.log("Playing Sound");
+    await sound.playAsync();
+  }
   async function playBackgroundMusic() {
     console.log("Loading Music");
     await bgMusic.current.loadAsync(
@@ -140,7 +148,7 @@ const Main = ({ navigation }) => {
               opacityStyle={AS.opacityStyle}
               style={Styles.question}
               startAnimation={startAnimation}
-              playSound={playSound}
+              playSound={playCircleClick}
             />
           </View>
         </View>
