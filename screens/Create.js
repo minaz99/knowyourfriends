@@ -30,6 +30,14 @@ const Create = ({ navigation, route }) => {
     console.log("Playing Sound");
     await sound.playAsync();
   }
+  async function playFieldSound() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/audio/FieldClick.mp3")
+    );
+    console.log("Playing Sound");
+    await sound.playAsync();
+  }
   startAnimation = () => {
     Animated.timing(yValue, {
       toValue: 0,
@@ -135,6 +143,7 @@ const Create = ({ navigation, route }) => {
             </Text>
             <View className="m-auto overflow-x-scroll">
               <TextInput
+                onPressIn={playFieldSound}
                 placeholderTextColor={"#0f172a"}
                 placeholder="Nickname"
                 style={[
@@ -156,7 +165,7 @@ const Create = ({ navigation, route }) => {
               Language
             </Text>
 
-            <View className="m-auto">
+            <View onTouchStart={playFieldSound} className="m-auto">
               <SelectList
                 data={["English", "Egyptian"]}
                 placeholder="Language"
@@ -189,6 +198,7 @@ const Create = ({ navigation, route }) => {
             </Text>
             <View className="m-auto">
               <TextInput
+                onPressIn={playFieldSound}
                 placeholder="0"
                 placeholderTextColor={"#0f172a"}
                 style={[
@@ -213,6 +223,7 @@ const Create = ({ navigation, route }) => {
             </Text>
             <View className="m-auto">
               <TextInput
+                onPressIn={playFieldSound}
                 placeholder="Max 100"
                 placeholderTextColor={"#0f172a"}
                 style={[
@@ -236,6 +247,7 @@ const Create = ({ navigation, route }) => {
             </Text>
             <View className="m-auto">
               <TextInput
+                onPressIn={playFieldSound}
                 placeholderTextColor={"#0f172a"}
                 placeholder="Password"
                 style={[
