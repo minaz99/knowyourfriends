@@ -22,9 +22,10 @@ const Game = ({ navigation, route }) => {
   const gameMusic = React.useRef(new Audio.Sound());
   async function playBackgroundMusic() {
     console.log("Loading Music");
-    await gameMusic.current.loadAsync(
-      require("../assets/audio/MagicInTheAirGameMusic.mp3")
-    );
+    if (!gameMusic.current._loaded)
+      await gameMusic.current.loadAsync(
+        require("../assets/audio/MagicInTheAirGameMusic.mp3")
+      );
 
     //console.log("Playing Sound");
     if (!isMusicPlaying) {
@@ -33,6 +34,31 @@ const Game = ({ navigation, route }) => {
       await gameMusic.current.setIsLoopingAsync(true);
       setIsMusicPlaying(true);
     }
+  }
+
+  async function playEndOfGameSound() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/audio/EndOfGame.mp3")
+    );
+    console.log("Playing Sound");
+    await sound.playAsync();
+  }
+  async function playScoresSound() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/audio/FieldClick.mp3")
+    );
+    console.log("Playing Sound");
+    await sound.playAsync();
+  }
+  async function playNextGuessSound() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/audio/ButtonClick.mp3")
+    );
+    console.log("Playing Sound");
+    await sound.playAsync();
   }
   playBackgroundMusic();
   useEffect(() => {
@@ -98,6 +124,7 @@ const Game = ({ navigation, route }) => {
             setTimer={setTimer}
             gradientA1={gradientA1}
             gradientA2={gradientA2}
+            playNextGuessSound={playNextGuessSound}
           />
         ) : gameInfo.gameData.stage === "selection" ? (
           <Selection
@@ -112,6 +139,7 @@ const Game = ({ navigation, route }) => {
           />
         ) : (
           <GameFinished
+            playEndOfGameSound={playEndOfGameSound}
             scores={gameInfo.scores}
             gameMusic={gameMusic}
             bgMusic={bgMusic}
@@ -122,6 +150,7 @@ const Game = ({ navigation, route }) => {
           <View className="inset-x-0 bottom-0 absolute">
             {gameInfo.gameData.stage !== "game finished" ? (
               <Scores
+                playScoresSound={playScoresSound}
                 scores={gameInfo.scores}
                 round={`${gameInfo.gameData.currentround} / ${gameInfo.gameData.rounds}`}
               />
