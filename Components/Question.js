@@ -30,7 +30,10 @@ const Question = (props) => {
           <View className="space-y-2 p-4">
             <LinearGradient className="p-1.5 rounded-full" colors={props.a1}>
               <TouchableOpacity
-                onPress={() => props.chooseAnswer(1)}
+                onPress={() => {
+                  props.playSelectionSound();
+                  props.chooseAnswer(1);
+                }}
                 className="p-2 bg-white rounded-full"
               >
                 <Text
@@ -46,7 +49,10 @@ const Question = (props) => {
             {/* <Text className="text-white text-lg font-bold mx-auto">OR</Text>*/}
             <LinearGradient className="p-1.5 rounded-full" colors={props.a2}>
               <TouchableOpacity
-                onPress={() => props.chooseAnswer(2)}
+                onPress={() => {
+                  props.playSelectionSound();
+                  props.chooseAnswer(2);
+                }}
                 className="p-2 bg-white rounded-full"
               >
                 <Text
