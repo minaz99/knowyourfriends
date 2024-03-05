@@ -48,15 +48,23 @@ const Main = ({ navigation }) => {
   }
   async function playBackgroundMusic() {
     console.log("Loading Music");
-    await bgMusic.current.loadAsync(
-      require("../assets/audio/SwingBackgroundMusic.mp3")
-    );
-    //setBackgroundMusicObj(sound);
-    //console.log("Playing Sound");
-    if (!isMusicPlaying) {
-      await bgMusic.current.playAsync();
-      await bgMusic.current.setIsLoopingAsync(true);
-      setIsMusicPlaying(true);
+    if (!bgMusic.current._loaded) {
+      console.log("got here");
+      await bgMusic.current
+        .loadAsync(require("../assets/audio/SwingBackgroundMusic.mp3"))
+        .catch((err) => err)
+        .then(
+          async () =>
+            await bgMusic.current
+              .playAsync()
+              .catch((err) => err)
+              .finally(
+                async () =>
+                  await bgMusic.current
+                    .setIsLoopingAsync(true)
+                    .catch((err) => err)
+              )
+        );
     }
   }
 
@@ -105,11 +113,9 @@ const Main = ({ navigation }) => {
     },
     opacityStyle: { opacity: opacityAnimation },
   };
-
+  playBackgroundMusic();
   startAnimation();
-  useEffect(() => {
-    playBackgroundMusic();
-  }, [isMusicPlaying]);
+
   let [fontsLoaded, fontError] = useFonts({
     Inter_600SemiBold,
     Inter_700Bold,
