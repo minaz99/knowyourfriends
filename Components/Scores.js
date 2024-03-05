@@ -6,7 +6,12 @@ const Scores = (props) => {
   const [scoresClicked, setScoresClicked] = useState(false);
   return scoresClicked ? (
     <View className="rounded-t-lg bg-white p-4 space-y-3">
-      <TouchableOpacity onPress={() => setScoresClicked(false)}>
+      <TouchableOpacity
+        onPress={() => {
+          props.playScoresSound();
+          setScoresClicked(false);
+        }}
+      >
         <Text
           style={Styles.headlines}
           className="text-slate-600 font-bold text-lg text-center tracking-widest"
@@ -40,7 +45,10 @@ const Scores = (props) => {
     </View>
   ) : (
     <TouchableOpacity
-      onPress={() => setScoresClicked(true)}
+      onPress={() => {
+        props.playScoresSound();
+        setScoresClicked(true);
+      }}
       className="bg-white  items-center  p-4 rounded-t-lg"
     >
       <Text className="text-slate-600 font-bold text-lg text-center tracking-widest">
