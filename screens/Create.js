@@ -7,6 +7,7 @@ import {
   Animated,
   Easing,
   Platform,
+  LogBox,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import axios from "axios";
@@ -18,7 +19,9 @@ import { Styles } from "../styles/Styles";
 import { Audio } from "expo-av";
 const Create = ({ navigation, route }) => {
   const { bgMusic } = route.params;
-
+  LogBox.ignoreLogs([
+    "Non-serializable values were found in the navigation state",
+  ]);
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
