@@ -7,6 +7,7 @@ import {
   Animated,
   Easing,
   Platform,
+  LogBox,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import axios from "axios";
@@ -20,6 +21,9 @@ const Join = ({ navigation, route }) => {
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
+  LogBox.ignoreLogs([
+    "Non-serializable values were found in the navigation state",
+  ]);
   async function playSound() {
     console.log("Loading Sound");
     const { sound } = await Audio.Sound.createAsync(
