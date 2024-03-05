@@ -5,6 +5,7 @@ import { Styles } from "../styles/Styles";
 import { useNavigation } from "@react-navigation/native";
 const GameFinished = (props) => {
   const navigation = useNavigation();
+  props.playEndOfGameSound();
   async function musicHandler() {
     await props.gameMusic.current.stopAsync();
     await props.bgMusic.current.playAsync();
