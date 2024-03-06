@@ -24,6 +24,7 @@ const GameFinished = (props) => {
           <LinearGradient
             className="rounded-2xl"
             colors={["#f6d365", "#FACC6B"]}
+            key={player.id}
           >
             <View key={player.id} className="rounded-2xl flex-row p-2 ">
               <Text
