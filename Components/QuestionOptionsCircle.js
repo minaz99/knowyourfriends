@@ -100,7 +100,6 @@ const QuestionOptionsCircle = (props) => {
           opacityStyle={props.opacityStyle}
           animatedStyles={props.animatedStyles}
           data={questionInView}
-          style={props.style}
           startAnimation={props.startAnimation}
         />
         <Animated.View
