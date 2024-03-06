@@ -16,7 +16,7 @@ import io from "socket.io-client";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftCircleIcon } from "react-native-heroicons/outline";
 import { Styles } from "../styles/Styles";
-import { Audio } from "expo-av";
+import Sounds from "../Components/Sounds";
 const Join = ({ navigation, route }) => {
   const { bgMusic } = route.params;
   let yValueCreateJoin = new Animated.Value(-100);
@@ -25,22 +25,6 @@ const Join = ({ navigation, route }) => {
   LogBox.ignoreLogs([
     "Non-serializable values were found in the navigation state",
   ]);
-  async function playSound() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/audio/ButtonClick.mp3")
-    );
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
-  async function playFieldSound() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/audio/FieldClick.mp3")
-    );
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
   startAnimation = () => {
     Animated.timing(yValue, {
       toValue: 0,
@@ -139,7 +123,7 @@ const Join = ({ navigation, route }) => {
             <TouchableOpacity
               style={Platform.OS === "ios" ? Styles.createJoinStyleIOS : ""}
               onPress={() => {
-                playSound();
+                Sounds.buttonClickSound();
                 navigation.goBack();
               }}
               className=""
@@ -168,7 +152,7 @@ const Join = ({ navigation, route }) => {
               </Text>
               <View className="m-auto overflow-x-scroll">
                 <TextInput
-                  onPressIn={playFieldSound}
+                  onPressIn={Sounds.fieldClickSound}
                   placeholderTextColor={"#0f172a"}
                   placeholder="Nickname"
                   style={[
@@ -191,7 +175,7 @@ const Join = ({ navigation, route }) => {
               </Text>
               <View className="m-auto">
                 <TextInput
-                  onPressIn={playFieldSound}
+                  onPressIn={Sounds.fieldClickSound}
                   placeholder="123"
                   placeholderTextColor={"#0f172a"}
                   style={[
@@ -215,7 +199,7 @@ const Join = ({ navigation, route }) => {
               </Text>
               <View className="m-auto">
                 <TextInput
-                  onPressIn={playFieldSound}
+                  onPressIn={Sounds.fieldClickSound}
                   placeholderTextColor={"#0f172a"}
                   placeholder="Password"
                   style={[
@@ -238,7 +222,7 @@ const Join = ({ navigation, route }) => {
               // style={{ backgroundColor: "#9F92BD" }}
               // className="rounded-3xl w-2/4 p-6 mx-auto "
               onPress={async () => {
-                playSound();
+                Sounds.buttonClickSound();
                 await joinGame();
               }}
             >

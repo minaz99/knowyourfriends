@@ -17,7 +17,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftCircleIcon } from "react-native-heroicons/outline";
 import { SelectList } from "react-native-dropdown-select-list";
 import { Styles } from "../styles/Styles";
-import { Audio } from "expo-av";
+import Sounds from "../Components/Sounds";
 const Create = ({ navigation, route }) => {
   const { bgMusic } = route.params;
   LogBox.ignoreLogs([
@@ -26,22 +26,6 @@ const Create = ({ navigation, route }) => {
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
-  async function playSound() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/audio/ButtonClick.mp3")
-    );
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
-  async function playFieldSound() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/audio/FieldClick.mp3")
-    );
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
   startAnimation = () => {
     Animated.timing(yValue, {
       toValue: 0,
@@ -153,7 +137,7 @@ const Create = ({ navigation, route }) => {
             <TouchableOpacity
               style={Platform.OS === "ios" ? Styles.createJoinStyleIOS : ""}
               onPress={() => {
-                playSound();
+                Sounds.buttonClickSound();
                 navigation.goBack();
               }}
             >
@@ -181,7 +165,7 @@ const Create = ({ navigation, route }) => {
               </Text>
               <View className="m-auto overflow-x-scroll">
                 <TextInput
-                  onPressIn={playFieldSound}
+                  onPressIn={Sounds.fieldClickSound}
                   placeholderTextColor={"#0f172a"}
                   placeholder="Nickname"
                   style={[
@@ -203,7 +187,7 @@ const Create = ({ navigation, route }) => {
                 Language
               </Text>
 
-              <View onTouchStart={playFieldSound} className="m-auto">
+              <View onTouchStart={Sounds.fieldClickSound} className="m-auto">
                 <SelectList
                   data={["English", "Egyptian"]}
                   placeholder="Language"
@@ -238,7 +222,7 @@ const Create = ({ navigation, route }) => {
               </Text>
               <View className="m-auto">
                 <TextInput
-                  onPressIn={playFieldSound}
+                  onPressIn={Sounds.fieldClickSound}
                   placeholder="0"
                   placeholderTextColor={"#0f172a"}
                   style={[
@@ -263,7 +247,7 @@ const Create = ({ navigation, route }) => {
               </Text>
               <View className="m-auto">
                 <TextInput
-                  onPressIn={playFieldSound}
+                  onPressIn={Sounds.fieldClickSound}
                   placeholder="Max 100"
                   placeholderTextColor={"#0f172a"}
                   style={[
@@ -287,7 +271,7 @@ const Create = ({ navigation, route }) => {
               </Text>
               <View className="m-auto">
                 <TextInput
-                  onPressIn={playFieldSound}
+                  onPressIn={Sounds.fieldClickSound}
                   placeholderTextColor={"#0f172a"}
                   placeholder="Password"
                   style={[
@@ -308,7 +292,7 @@ const Create = ({ navigation, route }) => {
           >
             <TouchableOpacity
               onPress={async () => {
-                playSound();
+                Sounds.buttonClickSound();
 
                 await createGame();
               }}
