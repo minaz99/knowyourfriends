@@ -2,33 +2,20 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
-  Image,
   Animated,
   Easing,
   Platform,
   StatusBar,
 } from "react-native";
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
-//import { useNavigation } from "@react-navigation/native";
+import React, { useLayoutEffect } from "react";
 import { SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  useFonts,
-  Inter_600SemiBold,
-  Inter_700Bold,
-} from "@expo-google-fonts/inter";
+
 import QuestionOptionsCircle from "../Components/QuestionOptionsCircle";
 import { Styles } from "../styles/Styles";
 import { Audio } from "expo-av";
+
 const Main = ({ navigation }) => {
-  const [backgroundMusicObj, setBackgroundMusicObj] = useState();
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const bgMusic = React.useRef(new Audio.Sound());
   async function playSound() {
     console.log("Loading Sound");
@@ -68,11 +55,6 @@ const Main = ({ navigation }) => {
     }
   }
 
-  const fonts = StyleSheet.create({
-    InterSemi: {
-      fontFamily: "Inter_600SemiBold",
-    },
-  });
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
@@ -87,7 +69,6 @@ const Main = ({ navigation }) => {
       toValue: 1,
       duration: 2500,
       useNativeDriver: true,
-      //easing: Easing.bounce,
     }).start();
     Animated.timing(yValueCreateJoin, {
       toValue: 0,
@@ -116,17 +97,6 @@ const Main = ({ navigation }) => {
   playBackgroundMusic();
   startAnimation();
 
-  let [fontsLoaded, fontError] = useFonts({
-    Inter_600SemiBold,
-    Inter_700Bold,
-  });
-
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded || fontError) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded, fontError]);
-
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, []);
@@ -140,7 +110,7 @@ const Main = ({ navigation }) => {
         <StatusBar hidden={true} />
         <View className="space-y-6 ">
           <Animated.Text
-            style={[Styles.title, AS.animatedStyles, fonts.InterSemi]}
+            style={[Styles.title, AS.animatedStyles]}
             numberOfLines={1}
             className=" text-center p-2  text-slate-600"
             adjustsFontSizeToFit={true}
@@ -152,7 +122,6 @@ const Main = ({ navigation }) => {
             <QuestionOptionsCircle
               animatedStyles={AS.animatedStyles}
               opacityStyle={AS.opacityStyle}
-              style={Styles.question}
               startAnimation={startAnimation}
               playSound={playCircleClick}
             />
