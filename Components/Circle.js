@@ -1,7 +1,7 @@
 import { View, Text, Image, Animated, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-
+import Sounds from "./Sounds";
 const Circle = (props) => {
   let rotateAnimation = new Animated.Value(0);
   const [animationStopped, setAnimationStopped] = useState(false);
@@ -39,7 +39,7 @@ const Circle = (props) => {
     >
       <TouchableOpacity
         onPress={() => {
-          props.playSound();
+          Sounds.circleClickSound();
           props.onClickCircle(props.data, props.dataInView, props.circleNumber);
         }}
         className="m-auto "
