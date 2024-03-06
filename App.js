@@ -7,7 +7,9 @@ import Lobby from "./screens/Lobby";
 import Game from "./screens/Game";
 import Loading from "./screens/Loading";
 import Join from "./screens/Join";
+
 const Stack = createNativeStackNavigator();
+
 export default function App() {
   return (
     <NavigationContainer>
