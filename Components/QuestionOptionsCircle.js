@@ -56,7 +56,6 @@ const QuestionOptionsCircle = (props) => {
             onClickCircle={onClickCircle}
             data={circle1}
             dataInView={questionInView}
-            playSound={props.playSound}
           />
         </View>
         <View className="justify-around flex-row ">
@@ -67,7 +66,6 @@ const QuestionOptionsCircle = (props) => {
               data={circle2}
               dataInView={questionInView}
               className="w-12bg-red-300 rounded-full h-12"
-              playSound={props.playSound}
             />
           </View>
           <View></View>
@@ -78,7 +76,6 @@ const QuestionOptionsCircle = (props) => {
               data={circle3}
               dataInView={questionInView}
               className="w-12 bg-red-300 rounded-full h-12"
-              playSound={props.playSound}
             />
           </View>
         </View>
@@ -93,7 +90,6 @@ const QuestionOptionsCircle = (props) => {
             onClickCircle={onClickCircle}
             data={circle4}
             dataInView={questionInView}
-            playSound={props.playSound}
           />
         </Animated.View>
         <QuestionCircle
@@ -111,7 +107,6 @@ const QuestionOptionsCircle = (props) => {
             onClickCircle={onClickCircle}
             data={circle5}
             dataInView={questionInView}
-            playSound={props.playSound}
           />
         </Animated.View>
       </View>
@@ -124,7 +119,6 @@ const QuestionOptionsCircle = (props) => {
               data={circle6}
               dataInView={questionInView}
               className="w-12 bg-red-300 rounded-full h-12"
-              playSound={props.playSound}
             />
           </View>
           <View></View>
@@ -135,7 +129,6 @@ const QuestionOptionsCircle = (props) => {
               data={circle7}
               dataInView={questionInView}
               className="w-12 bg-red-300 rounded-full h-12"
-              playSound={props.playSound}
             />
           </View>
         </View>
@@ -146,7 +139,6 @@ const QuestionOptionsCircle = (props) => {
             data={circle8}
             dataInView={questionInView}
             className="w-12 bg-red-300 rounded-full h-12 mx-auto"
-            playSound={props.playSound}
           />
         </View>
       </Animated.View>
