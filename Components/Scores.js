@@ -30,6 +30,7 @@ const Scores = (props) => {
           <LinearGradient
             className="rounded-2xl"
             colors={["#f794a4", "#fdd6bd"]}
+            key={player.id}
           >
             <View key={player.id} className="rounded-2xl flex-row p-2 ">
               <Text style={Styles.inlines} className="text-slate-600  flex-1">
