@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Platform } from "react-native";
+import { View, Text, SafeAreaView, Platform, ScrollView } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import Scores from "../Components/Scores";
 import Guessing from "../Components/Guessing";
@@ -112,40 +112,41 @@ const Game = ({ navigation, route }) => {
             </View>
           </LinearGradient>
         </View>
-
-        {gameInfo.gameData.stage === "guessing" ? (
-          <Guessing
-            gameID={gameID}
-            a1Color={colorA1}
-            a2Color={colorA2}
-            gameDetails={gameInfo}
-            playerID={player.id}
-            socket={socket}
-            setTimer={setTimer}
-            gradientA1={gradientA1}
-            gradientA2={gradientA2}
-            playNextGuessSound={playNextGuessSound}
-          />
-        ) : gameInfo.gameData.stage === "selection" ? (
-          <Selection
-            a1Color={colorA1}
-            a2Color={colorA2}
-            gameDetails={gameInfo}
-            gameID={gameID}
-            playerID={player.id}
-            socket={socket}
-            gradientA1={gradientA1}
-            gradientA2={gradientA2}
-          />
-        ) : (
-          <GameFinished
-            playEndOfGameSound={playEndOfGameSound}
-            scores={gameInfo.scores}
-            gameMusic={gameMusic}
-            bgMusic={bgMusic}
-            round={`${gameInfo.gameData.currentround} / ${gameInfo.gameData.rounds}`}
-          />
-        )}
+        <ScrollView overScrollMode="auto" scrollEnabled={true}>
+          {gameInfo.gameData.stage === "guessing" ? (
+            <Guessing
+              gameID={gameID}
+              a1Color={colorA1}
+              a2Color={colorA2}
+              gameDetails={gameInfo}
+              playerID={player.id}
+              socket={socket}
+              setTimer={setTimer}
+              gradientA1={gradientA1}
+              gradientA2={gradientA2}
+              playNextGuessSound={playNextGuessSound}
+            />
+          ) : gameInfo.gameData.stage === "selection" ? (
+            <Selection
+              a1Color={colorA1}
+              a2Color={colorA2}
+              gameDetails={gameInfo}
+              gameID={gameID}
+              playerID={player.id}
+              socket={socket}
+              gradientA1={gradientA1}
+              gradientA2={gradientA2}
+            />
+          ) : (
+            <GameFinished
+              playEndOfGameSound={playEndOfGameSound}
+              scores={gameInfo.scores}
+              gameMusic={gameMusic}
+              bgMusic={bgMusic}
+              round={`${gameInfo.gameData.currentround} / ${gameInfo.gameData.rounds}`}
+            />
+          )}
+        </ScrollView>
         {
           <View className="inset-x-0 bottom-0 absolute">
             {gameInfo.gameData.stage !== "game finished" ? (
