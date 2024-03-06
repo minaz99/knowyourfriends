@@ -1,6 +1,7 @@
 import { View, Text, Image, Animated, Easing } from "react-native";
 import React, { useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
+import { Styles } from "../styles/Styles";
 const QuestionCircle = (props) => {
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
@@ -40,8 +41,8 @@ const QuestionCircle = (props) => {
       >
         <Animated.View style={animatedStyles}>
           <Text
-            style={props.style}
-            className="text-slate-600 p-2 capitalize font-medium"
+            style={Styles.question}
+            className="text-slate-600 p-2 capitalize "
           >
             {props.data.question} ....
           </Text>
@@ -50,7 +51,7 @@ const QuestionCircle = (props) => {
               source={props.data.img1}
               className="rounded-full h-16 w-16"
             ></Image>
-            <Text style={props.style} className="text-slate-600 text-lg">
+            <Text style={Styles.question} className="text-slate-600 text-lg">
               OR
             </Text>
             <Image
