@@ -39,7 +39,7 @@ const Circle = (props) => {
     >
       <TouchableOpacity
         onPress={() => {
-          Sounds.circleClickSound();
+          Sounds.playCircleClickSound();
           props.onClickCircle(props.data, props.dataInView, props.circleNumber);
         }}
         className="m-auto "

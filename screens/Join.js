@@ -123,7 +123,7 @@ const Join = ({ navigation, route }) => {
             <TouchableOpacity
               style={Platform.OS === "ios" ? Styles.createJoinStyleIOS : ""}
               onPress={() => {
-                Sounds.buttonClickSound();
+                Sounds.playButtonClickSound();
                 navigation.goBack();
               }}
               className=""
@@ -152,7 +152,7 @@ const Join = ({ navigation, route }) => {
               </Text>
               <View className="m-auto overflow-x-scroll">
                 <TextInput
-                  onPressIn={Sounds.fieldClickSound}
+                  onPressIn={Sounds.playFieldClickSound}
                   placeholderTextColor={"#0f172a"}
                   placeholder="Nickname"
                   style={[
@@ -175,7 +175,7 @@ const Join = ({ navigation, route }) => {
               </Text>
               <View className="m-auto">
                 <TextInput
-                  onPressIn={Sounds.fieldClickSound}
+                  onPressIn={Sounds.playFieldClickSound}
                   placeholder="123"
                   placeholderTextColor={"#0f172a"}
                   style={[
@@ -199,7 +199,7 @@ const Join = ({ navigation, route }) => {
               </Text>
               <View className="m-auto">
                 <TextInput
-                  onPressIn={Sounds.fieldClickSound}
+                  onPressIn={Sounds.playFieldClickSound}
                   placeholderTextColor={"#0f172a"}
                   placeholder="Password"
                   style={[
@@ -222,7 +222,7 @@ const Join = ({ navigation, route }) => {
               // style={{ backgroundColor: "#9F92BD" }}
               // className="rounded-3xl w-2/4 p-6 mx-auto "
               onPress={async () => {
-                Sounds.buttonClickSound();
+                Sounds.playButtonClickSound();
                 await joinGame();
               }}
             >

@@ -2,6 +2,7 @@ import { View, Text, Touchable, TouchableOpacity } from "react-native";
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Styles } from "../styles/Styles";
+import Sounds from "./Sounds";
 const Question = (props) => {
   const questionFormatter = (question) => {
     let situation = question.split(":")[0];
@@ -31,7 +32,7 @@ const Question = (props) => {
             <LinearGradient className="p-1.5 rounded-full" colors={props.a1}>
               <TouchableOpacity
                 onPress={() => {
-                  props.playSelectionSound();
+                  Sounds.playSelectionSound();
                   props.chooseAnswer(1);
                 }}
                 className="p-2 bg-white rounded-full"
@@ -50,7 +51,7 @@ const Question = (props) => {
             <LinearGradient className="p-1.5 rounded-full" colors={props.a2}>
               <TouchableOpacity
                 onPress={() => {
-                  props.playSelectionSound();
+                  Sounds.playSelectionSound();
                   props.chooseAnswer(2);
                 }}
                 className="p-2 bg-white rounded-full"

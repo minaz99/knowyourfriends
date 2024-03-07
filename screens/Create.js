@@ -137,7 +137,7 @@ const Create = ({ navigation, route }) => {
             <TouchableOpacity
               style={Platform.OS === "ios" ? Styles.createJoinStyleIOS : ""}
               onPress={() => {
-                Sounds.buttonClickSound();
+                Sounds.playButtonClickSound();
                 navigation.goBack();
               }}
             >
@@ -165,7 +165,7 @@ const Create = ({ navigation, route }) => {
               </Text>
               <View className="m-auto overflow-x-scroll">
                 <TextInput
-                  onPressIn={Sounds.fieldClickSound}
+                  onPressIn={Sounds.playFieldClickSound}
                   placeholderTextColor={"#0f172a"}
                   placeholder="Nickname"
                   style={[
@@ -187,7 +187,10 @@ const Create = ({ navigation, route }) => {
                 Language
               </Text>
 
-              <View onTouchStart={Sounds.fieldClickSound} className="m-auto">
+              <View
+                onTouchStart={Sounds.playFieldClickSound}
+                className="m-auto"
+              >
                 <SelectList
                   data={["English", "Egyptian"]}
                   placeholder="Language"
@@ -222,7 +225,7 @@ const Create = ({ navigation, route }) => {
               </Text>
               <View className="m-auto">
                 <TextInput
-                  onPressIn={Sounds.fieldClickSound}
+                  onPressIn={Sounds.playFieldClickSound}
                   placeholder="0"
                   placeholderTextColor={"#0f172a"}
                   style={[
@@ -247,7 +250,7 @@ const Create = ({ navigation, route }) => {
               </Text>
               <View className="m-auto">
                 <TextInput
-                  onPressIn={Sounds.fieldClickSound}
+                  onPressIn={Sounds.playFieldClickSound}
                   placeholder="Max 100"
                   placeholderTextColor={"#0f172a"}
                   style={[
@@ -271,7 +274,7 @@ const Create = ({ navigation, route }) => {
               </Text>
               <View className="m-auto">
                 <TextInput
-                  onPressIn={Sounds.fieldClickSound}
+                  onPressIn={Sounds.playFieldClickSound}
                   placeholderTextColor={"#0f172a"}
                   placeholder="Password"
                   style={[
@@ -292,7 +295,7 @@ const Create = ({ navigation, route }) => {
           >
             <TouchableOpacity
               onPress={async () => {
-                Sounds.buttonClickSound();
+                Sounds.playButtonClickSound();
 
                 await createGame();
               }}
