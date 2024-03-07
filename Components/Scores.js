@@ -2,13 +2,14 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Styles } from "../styles/Styles";
+import Sounds from "./Sounds";
 const Scores = (props) => {
   const [scoresClicked, setScoresClicked] = useState(false);
   return scoresClicked ? (
     <View className="rounded-t-lg bg-white p-4 space-y-3">
       <TouchableOpacity
         onPress={() => {
-          props.playScoresSound();
+          Sounds.playFieldClickSound();
           setScoresClicked(false);
         }}
       >
@@ -47,7 +48,7 @@ const Scores = (props) => {
   ) : (
     <TouchableOpacity
       onPress={() => {
-        props.playScoresSound();
+        Sounds.playFieldClickSound();
         setScoresClicked(true);
       }}
       className="bg-white  items-center  p-4 rounded-t-lg"
