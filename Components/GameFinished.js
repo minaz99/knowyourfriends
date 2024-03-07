@@ -3,16 +3,12 @@ import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Styles } from "../styles/Styles";
 import { useNavigation } from "@react-navigation/native";
+import Sounds from "./Sounds";
 const GameFinished = (props) => {
   const navigation = useNavigation();
-  props.playEndOfGameSound();
-  async function musicHandler() {
-    await props.gameMusic.current.stopAsync();
-    await props.bgMusic.current.playAsync();
-  }
-  musicHandler();
+  Sounds.playEndOfGameSound(props.gameMusic, props.bgMusic);
   return (
-    <View className="rounded-t-lg bg-white h-screen p-4 space-y-3">
+    <View className="rounded-full h-full bg-white  p-8  space-y-3">
       <Text className="text-slate-600 font-bold text-lg text-center tracking-widest">
         Scores ↓
       </Text>
@@ -45,6 +41,7 @@ const GameFinished = (props) => {
           <LinearGradient
             className="rounded-2xl"
             colors={["#EDF1F4", "#C3CBDC"]}
+            key={player.id}
           >
             <View key={player.id} className="  flex-row p-2 ">
               <Text
@@ -65,6 +62,7 @@ const GameFinished = (props) => {
           <LinearGradient
             className="rounded-2xl"
             colors={["#c79081", "#dfa579"]}
+            key={player.id}
           >
             <View key={player.id} className=" flex-row p-2 ">
               <Text
@@ -85,6 +83,7 @@ const GameFinished = (props) => {
           <LinearGradient
             className="rounded-2xl"
             colors={["#243949", "#517fa4"]}
+            key={player.id}
           >
             <View
               key={player.id}
