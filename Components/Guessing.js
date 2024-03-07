@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import QuestionGuessing from "./QuestionGuessing";
 import { LinearGradient } from "expo-linear-gradient";
 import { Styles } from "../styles/Styles";
-import { Audio } from "expo-av";
+import Sounds from "./Sounds";
 const Guessing = (props) => {
   const [a1, setA1] = useState(props.gradientA1);
   const [a2, setA2] = useState(props.gradientA2);
@@ -13,7 +13,7 @@ const Guessing = (props) => {
   const [guessed, setGuessed] = useState(null);
   let nextGuessRef;
   const guessNext = () => {
-    props.playNextGuessSound();
+    Sounds.playButtonClickSound();
     props.socket.emit("next to guess", props.gameID);
     setGuessed(null);
   };
@@ -31,22 +31,6 @@ const Guessing = (props) => {
     let randomAns = Math.floor(Math.random() * 2) + 1;
     chooseAnswer(randomAns);
   };
-  async function playCorrectGuessSound() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/audio/CorrectGuess.mp3")
-    );
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
-  async function playWrongGuessSound() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/audio/WrongGuess.mp3")
-    );
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
 
   useEffect(() => {
     if (props.gameDetails.gameData.hostid === props.playerID)
@@ -75,20 +59,20 @@ const Guessing = (props) => {
       setGuessed(result);
       if (answer === 1) {
         if (result) {
-          playCorrectGuessSound();
+          Sounds.playCorrectGuessSound();
           setA1(correctAnswer);
         } else {
-          playWrongGuessSound();
+          Sounds.playWrongGuessSound();
           setA1(wrongAnswer);
           setA2(correctAnswer);
         }
       }
       if (answer === 2) {
         if (result) {
-          playCorrectGuessSound();
+          Sounds.playCorrectGuessSound();
           setA2(correctAnswer);
         } else {
-          playWrongGuessSound();
+          Sounds.playWrongGuessSound();
           setA2(wrongAnswer);
           setA1(correctAnswer);
         }
@@ -141,8 +125,6 @@ const Guessing = (props) => {
           a1={a1}
           a2={a2}
           points={points}
-          playCorrectGuessSound={playCorrectGuessSound}
-          playWrongGuessSound={playWrongGuessSound}
         />
       </View>
       <LinearGradient

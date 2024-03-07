@@ -14,47 +14,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import QuestionOptionsCircle from "../Components/QuestionOptionsCircle";
 import { Styles } from "../styles/Styles";
 import { Audio } from "expo-av";
-
+import Sounds from "../Components/Sounds";
 const Main = ({ navigation }) => {
   const bgMusic = React.useRef(new Audio.Sound());
-  async function playSound() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/audio/ButtonClick.mp3")
-    );
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
-  async function playCircleClick() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/audio/FieldClick.mp3")
-    );
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
-  async function playBackgroundMusic() {
-    console.log("Loading Music");
-    if (!bgMusic.current._loaded) {
-      console.log("got here");
-      await bgMusic.current
-        .loadAsync(require("../assets/audio/SwingBackgroundMusic.mp3"))
-        .catch((err) => err)
-        .then(
-          async () =>
-            await bgMusic.current
-              .playAsync()
-              .catch((err) => err)
-              .finally(
-                async () =>
-                  await bgMusic.current
-                    .setIsLoopingAsync(true)
-                    .catch((err) => err)
-              )
-        );
-    }
-  }
-
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
@@ -94,9 +56,8 @@ const Main = ({ navigation }) => {
     },
     opacityStyle: { opacity: opacityAnimation },
   };
-  playBackgroundMusic();
+  Sounds.playBackgroundMusic(bgMusic);
   startAnimation();
-
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, []);
@@ -123,7 +84,6 @@ const Main = ({ navigation }) => {
               animatedStyles={AS.animatedStyles}
               opacityStyle={AS.opacityStyle}
               startAnimation={startAnimation}
-              playSound={playCircleClick}
             />
           </View>
         </View>
@@ -139,7 +99,7 @@ const Main = ({ navigation }) => {
               <TouchableOpacity
                 className="p-6"
                 onPress={() => {
-                  playSound();
+                  Sounds.playButtonClickSound();
                   navigation.navigate("Create", {
                     bgMusic: bgMusic,
                   });
@@ -157,7 +117,7 @@ const Main = ({ navigation }) => {
               <TouchableOpacity
                 className=" p-6"
                 onPress={() => {
-                  playSound();
+                  Sounds.playButtonClickSound();
                   navigation.navigate("Join", { bgMusic: bgMusic });
                 }}
               >
@@ -174,7 +134,10 @@ const Main = ({ navigation }) => {
               className="rounded-full"
               colors={["#fdfbfb", "#ebedee"]}
             >
-              <TouchableOpacity onPress={playSound} className=" p-6">
+              <TouchableOpacity
+                onPress={Sounds.playButtonClickSound}
+                className=" p-6"
+              >
                 <Text className="text-slate-600  text-md tracking-widest font-bold text-center">
                   GAME RULES
                 </Text>

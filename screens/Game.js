@@ -7,6 +7,7 @@ import GameFinished from "../Components/GameFinished";
 import { Styles } from "../styles/Styles";
 import { LinearGradient } from "expo-linear-gradient";
 import { Audio } from "expo-av";
+import Sounds from "../Components/Sounds";
 const Game = ({ navigation, route }) => {
   const { gameID, gameDetails, player, socket, bgMusic } = route.params;
   useLayoutEffect(() => {
@@ -14,53 +15,13 @@ const Game = ({ navigation, route }) => {
   });
   const [gameInfo, setGameInfo] = useState(gameDetails);
   const [timer, setTimer] = useState(60);
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const colorA1 = "#ef4444";
   const colorA2 = "#f59e0b";
   const gradientA1 = ["#1e3c72", "#2a5298"];
   const gradientA2 = ["#ff758c", "#ff7eb3"];
   const gameMusic = React.useRef(new Audio.Sound());
-  async function playBackgroundMusic() {
-    console.log("Loading Music");
-    if (!gameMusic.current._loaded)
-      await gameMusic.current.loadAsync(
-        require("../assets/audio/MagicInTheAirGameMusic.mp3")
-      );
 
-    //console.log("Playing Sound");
-    if (!isMusicPlaying) {
-      await bgMusic.current.stopAsync();
-      await gameMusic.current.playAsync();
-      await gameMusic.current.setIsLoopingAsync(true);
-      setIsMusicPlaying(true);
-    }
-  }
-
-  async function playEndOfGameSound() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/audio/EndOfGame.mp3")
-    );
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
-  async function playScoresSound() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/audio/FieldClick.mp3")
-    );
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
-  async function playNextGuessSound() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/audio/ButtonClick.mp3")
-    );
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
-  playBackgroundMusic();
+  Sounds.playGameMusic(gameMusic, bgMusic);
   useEffect(() => {
     socket.on("start timer", () => {
       if (player.id === gameInfo.gameData.hostid) {
@@ -72,7 +33,10 @@ const Game = ({ navigation, route }) => {
       if (player.id === gameInfo.gameData.hostid) socket.emit("stop timer");
     });
 
-    socket.on("timer", (timer) => setTimer(timer));
+    socket.on("timer", (timer) => {
+      setTimer(timer);
+      if (timer === 10) Sounds.playTimeTickingSound();
+    });
     socket.on("updated", (gameDetails) => setGameInfo(gameDetails));
   }, []);
   return (
@@ -124,7 +88,6 @@ const Game = ({ navigation, route }) => {
               setTimer={setTimer}
               gradientA1={gradientA1}
               gradientA2={gradientA2}
-              playNextGuessSound={playNextGuessSound}
             />
           ) : gameInfo.gameData.stage === "selection" ? (
             <Selection
@@ -138,20 +101,20 @@ const Game = ({ navigation, route }) => {
               gradientA2={gradientA2}
             />
           ) : (
-            <GameFinished
-              playEndOfGameSound={playEndOfGameSound}
-              scores={gameInfo.scores}
-              gameMusic={gameMusic}
-              bgMusic={bgMusic}
-              round={`${gameInfo.gameData.currentround} / ${gameInfo.gameData.rounds}`}
-            />
+            <View className="p-4">
+              <GameFinished
+                scores={gameInfo.scores}
+                gameMusic={gameMusic}
+                bgMusic={bgMusic}
+                round={`${gameInfo.gameData.currentround} / ${gameInfo.gameData.rounds}`}
+              />
+            </View>
           )}
         </ScrollView>
         {
           <View className="inset-x-0 bottom-0 absolute">
             {gameInfo.gameData.stage !== "game finished" ? (
               <Scores
-                playScoresSound={playScoresSound}
                 scores={gameInfo.scores}
                 round={`${gameInfo.gameData.currentround} / ${gameInfo.gameData.rounds}`}
               />

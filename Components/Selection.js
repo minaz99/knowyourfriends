@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Question from "./Question";
 import { Styles } from "../styles/Styles";
 import { LinearGradient } from "expo-linear-gradient";
-import { Audio } from "expo-av";
 const Selection = (props) => {
   const colorAnswerSelected = ["#29323c", "#485563"];
   const [a1Color, setA1Color] = useState(props.gradientA1);
@@ -33,15 +32,6 @@ const Selection = (props) => {
     let randomAns = Math.floor(Math.random() * 2) + 1;
     chooseAnswer(randomAns);
   };
-
-  async function playSelectionSound() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/audio/OptionSelection.mp3")
-    );
-    console.log("Playing Sound");
-    await sound.playAsync();
-  }
 
   useEffect(() => {
     if (props.gameDetails.gameData.hostid === props.playerID) {
@@ -92,7 +82,6 @@ const Selection = (props) => {
             a1={a1Color}
             a2={a2Color}
             chooseAnswer={chooseAnswer}
-            playSelectionSound={playSelectionSound}
           />
         </View>
         <LinearGradient
