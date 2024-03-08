@@ -125,6 +125,7 @@ const Guessing = (props) => {
           a1={a1}
           a2={a2}
           points={points}
+          language={props.language}
         />
       </View>
       <LinearGradient
