@@ -21,7 +21,10 @@ const Question = (props) => {
         <View className="p-4">
           <Text
             numberOfLines={3}
-            style={Styles.inlines}
+            style={[
+              Styles.inlines,
+              props.language === "Egyptian" ? { fontWeight: "bold" } : "",
+            ]}
             className="text-slate-600 "
           >
             {questionFormatter(props.question).situation}
@@ -40,7 +43,10 @@ const Question = (props) => {
                 <Text
                   adjustsFontSizeToFit={true}
                   numberOfLines={2}
-                  style={Styles.inlines}
+                  style={[
+                    Styles.inlines,
+                    props.language === "Egyptian" ? { fontWeight: "bold" } : "",
+                  ]}
                   className="text-slate-600 text-center "
                 >
                   {questionFormatter(props.question).a1}
@@ -59,7 +65,10 @@ const Question = (props) => {
                 <Text
                   adjustsFontSizeToFit={true}
                   numberOfLines={2}
-                  style={Styles.inlines}
+                  style={[
+                    Styles.inlines,
+                    props.language === "Egyptian" ? { fontWeight: "bold" } : "",
+                  ]}
                   className="text-slate-600 text-center "
                 >
                   {questionFormatter(props.question).a2}
@@ -74,7 +83,10 @@ const Question = (props) => {
                 <Text
                   numberOfLines={2}
                   adjustsFontSizeToFit={true}
-                  style={Styles.inlines}
+                  style={[
+                    Styles.inlines,
+                    props.language === "Egyptian" ? { fontWeight: "bold" } : "",
+                  ]}
                   className="text-slate-600 text-center "
                 >
                   {questionFormatter(props.question).a1}
@@ -87,7 +99,10 @@ const Question = (props) => {
                 <Text
                   numberOfLines={2}
                   adjustsFontSizeToFit={true}
-                  style={Styles.inlines}
+                  style={[
+                    Styles.inlines,
+                    props.language === "Egyptian" ? { fontWeight: "bold" } : "",
+                  ]}
                   className="text-slate-600 text-center "
                 >
                   {questionFormatter(props.question).a2}
