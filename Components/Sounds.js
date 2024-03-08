@@ -51,6 +51,12 @@ const Sounds = {
     );
     await sound.playAsync();
   },
+  playJoinedLobbySound: async function playSelectionSound() {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/audio/JoinedLobby.mp3")
+    );
+    await sound.playAsync();
+  },
   playTimeTickingSound: async function playTimeTickingSound() {
     const { sound } = await Audio.Sound.createAsync(
       require("../assets/audio/TimeTicking.mp3")
