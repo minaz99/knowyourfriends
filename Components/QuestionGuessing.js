@@ -29,7 +29,10 @@ const QuestionGuessing = (props) => {
         <View className="p-4">
           <Text
             numberOfLines={3}
-            style={Styles.inlines}
+            style={[
+              Styles.inlines,
+              props.language === "Egyptian" ? { fontWeight: "bold" } : "",
+            ]}
             className="text-slate-600 "
           >
             {questionFormatter(props.question).situation}
@@ -43,9 +46,12 @@ const QuestionGuessing = (props) => {
                 className="p-2 bg-white rounded-full"
               >
                 <Text
-                  numberOfLines={2}
+                  numberOfLines={3}
                   adjustsFontSizeToFit={true}
-                  style={Styles.inlines}
+                  style={[
+                    Styles.inlines,
+                    props.language === "Egyptian" ? { fontWeight: "bold" } : "",
+                  ]}
                   className="text-slate-600 text-center "
                 >
                   {questionFormatter(props.question).a1}
@@ -60,9 +66,12 @@ const QuestionGuessing = (props) => {
                 className="p-2 bg-white rounded-full"
               >
                 <Text
-                  numberOfLines={2}
+                  numberOfLines={3}
                   adjustsFontSizeToFit={true}
-                  style={Styles.inlines}
+                  style={[
+                    Styles.inlines,
+                    props.language === "Egyptian" ? { fontWeight: "bold" } : "",
+                  ]}
                   className="text-slate-600 text-center "
                 >
                   {questionFormatter(props.question).a2}
@@ -79,9 +88,12 @@ const QuestionGuessing = (props) => {
                 disabled
               >
                 <Text
-                  numberOfLines={2}
+                  numberOfLines={3}
                   adjustsFontSizeToFit={true}
-                  style={Styles.inlines}
+                  style={[
+                    Styles.inlines,
+                    props.language === "Egyptian" ? { fontWeight: "bold" } : "",
+                  ]}
                   className="text-slate-600 text-center "
                 >
                   {questionFormatter(props.question).a1}
@@ -98,9 +110,12 @@ const QuestionGuessing = (props) => {
                 disabled
               >
                 <Text
-                  numberOfLines={2}
+                  numberOfLines={3}
                   adjustsFontSizeToFit={true}
-                  style={Styles.inlines}
+                  style={[
+                    Styles.inlines,
+                    props.language === "Egyptian" ? { fontWeight: "bold" } : "",
+                  ]}
                   className="text-slate-600 text-center "
                 >
                   {questionFormatter(props.question).a2}
