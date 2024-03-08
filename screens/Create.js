@@ -102,6 +102,7 @@ const Create = ({ navigation, route }) => {
       await axios
         .post("http://192.168.43.135:3003/game/create", {
           username: username,
+          language: language,
           noOfPlayers: players,
           rounds: rounds,
           password: password,
