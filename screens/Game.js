@@ -9,7 +9,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Audio } from "expo-av";
 import Sounds from "../Components/Sounds";
 const Game = ({ navigation, route }) => {
-  const { gameID, gameDetails, player, socket, bgMusic } = route.params;
+  const { gameID, gameDetails, player, socket, bgMusic, language } =
+    route.params;
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   });
@@ -88,6 +89,7 @@ const Game = ({ navigation, route }) => {
               setTimer={setTimer}
               gradientA1={gradientA1}
               gradientA2={gradientA2}
+              language={language}
             />
           ) : gameInfo.gameData.stage === "selection" ? (
             <Selection
@@ -99,6 +101,7 @@ const Game = ({ navigation, route }) => {
               socket={socket}
               gradientA1={gradientA1}
               gradientA2={gradientA2}
+              language={language}
             />
           ) : (
             <View className="p-4">
