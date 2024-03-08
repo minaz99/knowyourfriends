@@ -8,13 +8,13 @@ const GameFinished = (props) => {
   const navigation = useNavigation();
   Sounds.playEndOfGameSound(props.gameMusic, props.bgMusic);
   return (
-    <View className="rounded-full h-full bg-white  p-8  space-y-3">
-      <Text className="text-slate-600 font-bold text-lg text-center tracking-widest">
+    <View className="rounded-3xl h-full bg-black/60  p-8  space-y-3">
+      {/*<Text className="text-slate-600 font-bold text-lg text-center tracking-widest">
         Scores ↓
       </Text>
       <Text className="text-slate-600 font-medium text-md text-center tracking-widest">
         Round {props.round}
-      </Text>
+  </Text>*/}
       {props.scores.map((player, index) => {
         return index === 0 ? (
           <LinearGradient
@@ -105,15 +105,18 @@ const GameFinished = (props) => {
           </LinearGradient>
         );
       })}
-      <Text className="text-lg text-center text-slate-600 tracking-widest font-bold">
+      <Text className="text-lg text-center text-white tracking-widest font-bold">
         Game Finished
       </Text>
       <LinearGradient
-        className="mx-auto p-2 rounded-2xl"
-        colors={["#64b3f4", "#bfd9fe"]}
+        className="w-fit  mx-auto p-1.5 bg-blue-200 rounded-full "
+        colors={["#c1dfc4", "#ace0f9"]}
       >
-        <TouchableOpacity onPress={() => navigation.navigate("Main")}>
-          <Text style={Styles.headlines} className="text-slate-600">
+        <TouchableOpacity
+          className="mx-auto rounded-full bg-white  /80 p-3"
+          onPress={() => navigation.navigate("Main")}
+        >
+          <Text style={Styles.inlines} className="text-slate-600">
             Play again
           </Text>
         </TouchableOpacity>
