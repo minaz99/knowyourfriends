@@ -82,6 +82,7 @@ const Selection = (props) => {
             a1={a1Color}
             a2={a2Color}
             chooseAnswer={chooseAnswer}
+            language={props.language}
           />
         </View>
         <LinearGradient
