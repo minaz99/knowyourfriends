@@ -14,6 +14,7 @@ import { Styles } from "../styles/Styles";
 import { ArrowLeftCircleIcon } from "react-native-heroicons/outline";
 import * as Progress from "react-native-progress";
 import LobbyDetailsView from "../Components/LobbyDetailsView";
+import Sounds from "../Components/Sounds";
 const Lobby = ({ navigation, route }) => {
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
@@ -22,6 +23,7 @@ const Lobby = ({ navigation, route }) => {
 
   const [playersJoined, setPlayersJoined] = useState("");
   const [players, setPlayers] = useState([]);
+  const [language, setLanguage] = useState("");
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
   let opacityAnimation = new Animated.Value(0);
@@ -64,9 +66,11 @@ const Lobby = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    socket.on("join", ({ playersJoinedStr, players }) => {
+    socket.on("join", ({ playersJoinedStr, players, language }) => {
+      Sounds.playJoinedLobbySound();
       setPlayers(players);
       setPlayersJoined(playersJoinedStr);
+      setLanguage(language);
     });
     socket.on("start game", ({ gameDetails, currentStage }) => {
       navigation.navigate("Game", {
@@ -76,6 +80,7 @@ const Lobby = ({ navigation, route }) => {
         player,
         socket,
         bgMusic,
+        language,
       });
     });
     startAnimation();
@@ -126,6 +131,7 @@ const Lobby = ({ navigation, route }) => {
           password={password}
           id={gameID}
           playersJoined={playersJoined}
+          language={language}
         />
       </SafeAreaView>
     </LinearGradient>

@@ -58,6 +58,14 @@ const LobbyDetailsView = (props) => {
             </Text>
           </View>
           <View className="flex-row text-slate-600 space-x-2">
+            <Text className="text-white " style={Styles.headlines}>
+              Language:
+            </Text>
+            <Text className="text-green-200 " style={Styles.headlines}>
+              {props.language}
+            </Text>
+          </View>
+          <View className="flex-row text-slate-600 space-x-2">
             <Text style={Styles.headlines} className="text-white">
               Players joined:
             </Text>
