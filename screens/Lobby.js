@@ -93,7 +93,13 @@ const Lobby = ({ navigation, route }) => {
         className="h-full "
       >
         <View className="">
-          <TouchableOpacity onPress={() => navigation.goBack()} className="">
+          <TouchableOpacity
+            onPress={() => {
+              Sounds.playButtonClickSound();
+              navigation.goBack();
+            }}
+            className=""
+          >
             <ArrowLeftCircleIcon color={"#475569"} height={32} width={32} />
           </TouchableOpacity>
           <Text
