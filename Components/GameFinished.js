@@ -114,7 +114,10 @@ const GameFinished = (props) => {
       >
         <TouchableOpacity
           className="mx-auto rounded-full bg-white  /80 p-3"
-          onPress={() => navigation.navigate("Main")}
+          onPress={() => {
+            Sounds.playButtonClickSound();
+            navigation.navigate("Main");
+          }}
         >
           <Text style={Styles.inlines} className="text-slate-600">
             Play again
