@@ -87,13 +87,18 @@ const Join = ({ navigation, route }) => {
   const joinGame = async () => {
     if (allFieldsFilled()) {
       await axios
-        .post("http://192.168.43.135:3003/game/join", {
-          username: username,
-          gameID: gameID,
-          password: password,
-        })
+        .post(
+          `http://${process.env.EXPO_PUBLIC_ADDRESS}:${process.env.EXPO_PUBLIC_PORT}/game/join`,
+          {
+            username: username,
+            gameID: gameID,
+            password: password,
+          }
+        )
         .then((resp) => {
-          let socket = io("http://192.168.43.135:3003");
+          let socket = io(
+            `http://${process.env.EXPO_PUBLIC_ADDRESS}:${process.env.EXPO_PUBLIC_PORT}`
+          );
           socket.emit("join", gameID);
           navigation.navigate("Lobby", {
             player: resp.data.player,

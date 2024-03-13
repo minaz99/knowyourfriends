@@ -18,6 +18,7 @@ import { ArrowLeftCircleIcon } from "react-native-heroicons/outline";
 import { SelectList } from "react-native-dropdown-select-list";
 import { Styles } from "../styles/Styles";
 import Sounds from "../Components/Sounds";
+
 const Create = ({ navigation, route }) => {
   const { bgMusic } = route.params;
   LogBox.ignoreLogs([
@@ -100,15 +101,20 @@ const Create = ({ navigation, route }) => {
   const createGame = async () => {
     if (allFieldsFilled()) {
       await axios
-        .post("http://192.168.43.135:3003/game/create", {
-          username: username,
-          language: language,
-          noOfPlayers: players,
-          rounds: rounds,
-          password: password,
-        })
+        .post(
+          `http://${process.env.EXPO_PUBLIC_ADDRESS}:${process.env.EXPO_PUBLIC_PORT}/game/create`,
+          {
+            username: username,
+            language: language,
+            noOfPlayers: players,
+            rounds: rounds,
+            password: password,
+          }
+        )
         .then((resp) => {
-          let socket = io("http://192.168.43.135:3003");
+          let socket = io(
+            `http://${process.env.EXPO_PUBLIC_ADDRESS}:${process.env.EXPO_PUBLIC_PORT}`
+          );
           socket.emit("join", resp.data.gameID);
           navigation.navigate("Lobby", {
             player: resp.data.player,
