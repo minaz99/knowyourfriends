@@ -4,7 +4,6 @@ const Images = {
   chocolate: require("../src/chocolate.png"),
   comedy: require("../src/comedy.png"),
   flight: require("../src/airplane.png"),
-  landscape: require("../src/landscape.png"),
   rain: require("../src/rain.png"),
   scream: require("../src/scream.png"),
   train: require("../src/train.png"),
