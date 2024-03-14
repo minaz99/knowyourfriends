@@ -83,16 +83,16 @@ const Credits = ({ navigation }) => {
           style={[AS.opacityAnimation, AS.animatedStyles]}
           className="space-y-4   p-8"
         >
-          <Text className="text-white" style={Styles.inlines}>
+          <Text className="text-white " style={Styles.inlines}>
             Icons:
           </Text>
           <ScrollView
             className="overflow-y-scroll space-y-2 mb-12"
             showsVerticalScrollIndicator={false}
           >
-            {CreditsSection.map((credit) => {
+            {CreditsSection.map((credit, index) => {
               return (
-                <View>
+                <View key={index}>
                   <TouchableOpacity
                     onPress={() => Linking.openURL(credit.link)}
                   >
