@@ -1,19 +1,18 @@
 {
   "expo": {
-    "name": "knowyourfriends",
-    "slug": "knowyourfriends",
+    "name": "Do you know your friends",
+    "slug": "Do-you-know-your-friends",
+    "description": "Curious to see just how well you know your friends? Dive into this game packed with a bunch of fun situational questions! It's a chance to put your friendship to the test and learn even more about each other along the way. Let the good times roll!",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon.jpeg",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -26,6 +25,5 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
-    
   }
 }
