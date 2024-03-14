@@ -7,6 +7,7 @@ import Lobby from "./screens/Lobby";
 import Game from "./screens/Game";
 import Loading from "./screens/Loading";
 import Join from "./screens/Join";
+import Credits from "./screens/Credits";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Credits" component={Credits} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Create" component={Create} />
         <Stack.Screen name="Join" component={Join} />
