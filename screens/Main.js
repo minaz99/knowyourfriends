@@ -128,6 +128,7 @@ const Main = ({ navigation }) => {
             </LinearGradient>
           </Animated.View>
           <Animated.View
+            className="space-y-3 overflow-y-scroll"
             style={[AS.opacityStyle, AS.animatedStyles, AS.animatedStylesBtns]}
           >
             <LinearGradient
@@ -143,6 +144,14 @@ const Main = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
             </LinearGradient>
+            <TouchableOpacity onPress={() => navigation.navigate("Credits")}>
+              <Text
+                style={Styles.inlinesForDropDown}
+                className="text-slate-600 font-bold text-center underline"
+              >
+                Credits
+              </Text>
+            </TouchableOpacity>
           </Animated.View>
         </View>
       </SafeAreaView>
