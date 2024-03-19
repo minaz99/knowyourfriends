@@ -15,6 +15,7 @@ import { Styles } from "../styles/Styles";
 import { SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ArrowLeftCircleIcon } from "react-native-heroicons/outline";
+import Sounds from "../Components/Sounds";
 const Credits = ({ navigation }) => {
   let yValueCreateJoin = new Animated.Value(-100);
   let yValue = new Animated.Value(-120);
@@ -66,6 +67,7 @@ const Credits = ({ navigation }) => {
           <TouchableOpacity
             style={Platform.OS === "ios" ? Styles.createJoinStyleIOS : ""}
             onPress={() => {
+              Sounds.playButtonClickSound();
               navigation.goBack();
             }}
           >
