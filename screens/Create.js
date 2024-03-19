@@ -98,6 +98,11 @@ const Create = ({ navigation, route }) => {
       return false;
     }
   };
+  const networkError = () => {
+    setErrorMsg("Network error");
+    errorRef.scrollToEnd({ animated: true });
+    return false;
+  };
   const createGame = async () => {
     if (allFieldsFilled()) {
       await axios
@@ -124,9 +129,9 @@ const Create = ({ navigation, route }) => {
             bgMusic: bgMusic,
           });
         })
-        .catch((error) => {
-          setErrorMsg("Network error");
+        .catch(() => {
           errorRef.scrollToEnd({ animated: true });
+          setErrorMsg("Network error");
         });
     }
   };
