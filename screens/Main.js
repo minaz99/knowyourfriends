@@ -144,7 +144,12 @@ const Main = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
             </LinearGradient>
-            <TouchableOpacity onPress={() => navigation.navigate("Credits")}>
+            <TouchableOpacity
+              onPress={() => {
+                Sounds.playButtonClickSound();
+                navigation.navigate("Credits");
+              }}
+            >
               <Text
                 style={Styles.inlinesForDropDown}
                 className="text-slate-600 font-bold text-center underline"
