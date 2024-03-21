@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Vibration } from "react-native";
 import React, { useEffect, useState } from "react";
 import Question from "./Question";
 import { Styles } from "../styles/Styles";
@@ -38,6 +38,8 @@ const Selection = (props) => {
       console.log("selection started");
       props.socket.emit("selection started", props.gameID);
     }
+    if (props.gameDetails.playerGuessing.id !== props.playerID)
+      Vibration.vibrate(250);
 
     props.socket.on("selection time up", () => {
       if (props.playerID !== props.gameDetails.playerGuessing.id && !selected)
