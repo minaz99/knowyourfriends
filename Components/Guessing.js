@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, Vibration } from "react-native";
 import React, { useState, useEffect } from "react";
 import QuestionGuessing from "./QuestionGuessing";
 import { LinearGradient } from "expo-linear-gradient";
@@ -35,6 +35,9 @@ const Guessing = (props) => {
   useEffect(() => {
     if (props.gameDetails.gameData.hostid === props.playerID)
       props.socket.emit("guessing started", props.gameID);
+
+    if (props.gameDetails.playerGuessing.id === props.playerID)
+      Vibration.vibrate(250);
 
     props.socket.on("guessing time up", () => {
       if (props.playerID === props.gameDetails.playerGuessing.id && !guessed) {
