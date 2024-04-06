@@ -88,7 +88,7 @@ const Join = ({ navigation, route }) => {
     if (allFieldsFilled()) {
       await axios
         .post(
-          `http://${process.env.EXPO_PUBLIC_ADDRESS}:${process.env.EXPO_PUBLIC_PORT}/game/join`,
+          `https://${process.env.EXPO_PUBLIC_ADDRESS}:${process.env.EXPO_PUBLIC_PORT}/game/join`,
           {
             username: username,
             gameID: gameID,
@@ -97,7 +97,7 @@ const Join = ({ navigation, route }) => {
         )
         .then((resp) => {
           let socket = io(
-            `http://${process.env.EXPO_PUBLIC_ADDRESS}:${process.env.EXPO_PUBLIC_PORT}`
+            `https://${process.env.EXPO_PUBLIC_ADDRESS}:${process.env.EXPO_PUBLIC_PORT}`
           );
           socket.emit("join", gameID);
           navigation.navigate("Lobby", {
