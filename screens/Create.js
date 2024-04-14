@@ -107,7 +107,7 @@ const Create = ({ navigation, route }) => {
     if (allFieldsFilled()) {
       await axios
         .post(
-          `https://${process.env.EXPO_PUBLIC_ADDRESS}:${process.env.EXPO_PUBLIC_PORT}/game/create`,
+          `http://${process.env.EXPO_PUBLIC_ADDRESS}:${process.env.EXPO_PUBLIC_PORT}/game/create`,
           {
             username: username,
             language: language,
@@ -116,9 +116,13 @@ const Create = ({ navigation, route }) => {
             password: password,
           }
         )
+        .catch((error) => {
+          errorRef.scrollToEnd({ animated: true });
+          setErrorMsg("Server request failed");
+        })
         .then((resp) => {
           let socket = io(
-            `https://${process.env.EXPO_PUBLIC_ADDRESS}:${process.env.EXPO_PUBLIC_PORT}`
+            `http://${process.env.EXPO_PUBLIC_ADDRESS}:${process.env.EXPO_PUBLIC_PORT}`
           );
           socket.emit("join", resp.data.gameID);
           navigation.navigate("Lobby", {
